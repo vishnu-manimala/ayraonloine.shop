@@ -1,0 +1,247 @@
+<%- include('../layouts/headerUser.ejs') %>
+    <div class="container mb-lg-3">
+        <div class="row justify-content-center mt-3">
+            <div class="col-md-12">
+                <div class="card">
+                    <header class="card-header border-0 text-center mp-sm-3">
+                        <h5 class="mt-md-3 " style="color: palevioletred;">Order Details</h5>
+                    </header>
+                    <article class="card-body">
+                        <div class="row d-flex justify-content-center mt-lg-2 mb-md-3 pb-md-2 shadow">
+                            <h6 class="ps-md-5">DELIVERY ADDRESS </h6>
+                            <div class="col-6 text-center pt-md-2">
+                                <div class="text-center pt-md-2">
+                                  
+                                    <span>
+                                        <%= address.name %>
+                                    </span><br>
+                                    <span>
+                                        <%= addresString %>
+                                    </span><br>
+                                    <span>Landmark: <%= address.landmark %></span><br>
+                                    <span>Phone: <%= address.phone %></span><br>
+                                    <span>Alternate Phone: <%= address.alternatePhone %></span><br>
+                                </div>
+                            </div>
+                            <% const date=new Date(orderData.expectedDelivery);%>
+
+                                <% const trimmedDateStr=date.toString().substring(0, 15);%>
+
+                                    <div class="col-6 text-center pt-md-2">
+                                        <div class="text-center pt-md-2">
+                                            <span> Status: <%= orderData.status %> </span><br>
+                                            <% if(orderData.status === "return Initialised") {%>
+                                                <span>
+                                                    </span> <span style="color:red">
+                                                   Payment will be returned within 10 working days.
+                                                </span><br>
+                                            <%}else { %>
+                                            <span>
+                                                Expected delivery:</span> <span style="color:red">
+                                                <%= trimmedDateStr %>
+                                            </span><br>
+                                            <%} %>
+                                            <span> Payment method: <%= orderData.payment.method %> </span><br>
+                                            <span> Total Amount: Rs.<%= orderData.payment.amount %> </span><br>
+                                            <a href="/invoice?id=<%= orderData._id %> "><span>Download Invoice</span></a>
+                                        </div>
+                                    </div>
+                        </div>
+                        <div class="container row d-flex justify-content-center ms-md-1 mb-md-1 mt-lg-2 p-md-2 shadow">
+                            <div class="col-12  pt-md-2">
+                                <h5 class="pb-md-2">Products List</h5>
+                                <% if(orderData){%>
+                                    <% orderData.products.forEach((element)=> { %>
+
+                                        <div class="row d-flex justify-content-center mt-lg-2">
+                                            <div class="col-2  ">
+                                                <img class="shadow"
+                                                    src=" ../../../../../productImages/<%= element.image[0] %> "
+                                                    style="width: 100px;height: 100px;">
+                                            </div>
+                                            <div class="col-8  pt-md-2">
+                                                <span>
+                                                    <%= element.p_name %>
+                                                </span><br>
+                                                <span> color: <%= element.color %> </span><br>
+                                                <span> price: Rs.<%= element.price %> </span>
+                                            </div>
+                                            <div class="col-2  pt-md-2">
+                                                <span>
+                                                    Qty: <%= element.quantity %>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <% }) %>
+                                            <% }%>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="container row d-flex mt-md-2" id="retcancel">
+                            <div class="col d-flex justify-content-lg-center pt-md-2">
+                                <% if(orderData.status==="Delivered" ){%>
+                                    <button type="submit" id="return" class="btn  btn-block text-black"
+                                        style="width:100px; background-color: palevioletred; " onclick="returnreq()">
+                                        return
+                                    </button>
+                                    <% } else if(orderData.status==="confirm" ){ %>
+                                        <button type="submit" id="cancel" class="btn  btn-block text-black"
+                                            style="width:100px; background-color: palevioletred; "
+                                            onclick="cancelreq()">
+                                            Cancel
+                                        </button>
+                                        <% }%>
+                            </div>
+                            
+                        </div>
+                        <div id="reason" style="display:none;">
+                        <div class="container row d-flex justify-content-center text-center mt-md-2"  >
+
+
+                            <div class="col justify-content-center pt-5 " >
+                              
+                                <% if(orderData.status==="Delivered" ){%>
+                                    Please let us know the reason:-
+                                    <div class="row d-flex pt-2">
+                                        <input type="radio" name="reasonButton" value="product defect" id="radioGreen">
+                                        <label for="radioRed">Product defect</label>
+                                    </div>
+                                    <div class="row d-flex">
+                                        <input type="radio" name="reasonButton" value="found better Product"
+                                        id="radioGreen">
+                                        <label for="radioBlue">Found better Product</label>
+                                    </div>
+                                    <div class="row d-flex">
+                                        <input type="radio" name="reasonButton" value="Not same as expected"
+                                            id="radioGreen">
+                                        <label for="radioGreen">Not same as expected</label>
+                                    </div>
+                                    <div class="row d-flex">
+                                        <input type="radio" name="reasonButton" value="Other reasons" id="radioGreen">
+                                        <label for="radioGreen">Other reasons</label>
+                                    </div>
+                                    <% } else if(orderData.status==="confirm" ){ %>
+                                        Please let us know the reason:-
+                                        <div class="pt-2">
+                                            <input type="radio" name="reasonButton" value="I want to change delivery address"
+                                                id="radioRed">
+                                            <label for="radioRed">I want to change delivery address</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio" name="reasonButton" value="I want to change contact Number"
+                                                id="radioBlue">
+                                            <label for="radioBlue">I want to change contact Number</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio" name="reasonButton" value="I found better product"
+                                                id="radioGreen">
+                                            <label for="radioGreen">I found better product</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio" name="reasonButton" value="Other reasons"
+                                                id="radioGreen">
+                                            <label for="radioGreen">Other reasons</label>
+                                        </div>
+                                        <% }%>
+
+                            </div>
+                            <div class="row justify-content-center p-2">
+
+                                <% if(orderData.status==="Delivered" ){%>
+                                    <button type="button" id="return" class="btn  btn-block text-black"
+                                        style="width:100px; background-color: palevioletred; "
+                                        onclick="changeStatus('<%= orderId %>','<%=JSON.stringify(orderData.products)  %>','return')">
+                                        return
+                                    </button>
+                                    <button type="button"  class="btn  btn-block text-black"
+                                    style="width:100px; background-color: palevioletred; "
+                                    onclick="cancel()">
+                                    Cancel
+                                </button>
+                                    <% } else if(orderData.status ==="confirm" ){ %>
+                                        <button type="button" id="cancel" class="btn  btn-block text-black m-2"
+                                            style="width:100px; background-color: palevioletred; height: fit-content;"
+                                            onclick="changeStatus('<%= orderId %>','<%=JSON.stringify(orderData.products)  %>','cancel')">
+                                            Cancel
+                                        </button>
+                                        <button type="button"  class="btn  btn-block text-black m-2"
+                                    style="width:100px; background-color: palevioletred; height: fit-content; "
+                                    onclick="cancel()">
+                                    abort
+                                </button>
+                                        <% }%>
+                            </div>
+                        </div>
+                    </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        function returnreq() {
+            document.getElementById('retcancel').style.display = "none";
+            document.getElementById('reason').style.display = "block";
+        }
+
+        function cancelreq() {
+            document.getElementById('retcancel').style.display = "none";
+            document.getElementById('reason').style.display = "block";
+        }
+
+        function cancel(){
+           
+            document.getElementById('reason').style.display = "none";
+            document.getElementById('retcancel').style.display = "block";
+        }
+        function changeStatus(id,data, status) {
+            console.log(data)
+            const productsList = JSON.parse(data);
+            console.log(id)
+          
+            let selectedValue;
+            const radioButtons = document.getElementsByName('reasonButton');
+             // Loop through all the radio buttons
+            for (let i = 0; i < radioButtons.length; i++) {
+                // Check if the radio button is selected
+                if (radioButtons[i].checked) {
+                // Retrieve the selected value
+                selectedValue = radioButtons[i].value;
+                console.log(selectedValue);
+                break; 
+                }
+            }
+                // Do something with the selected value
+            
+            
+            const url = "/kart/ckeckout/order";
+            const options = {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id,productsList, status,selectedValue })
+            }
+
+            fetchStatus(url, options,status);
+        }
+        function fetchStatus(url, options,status) {
+
+            fetch(url, options)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    if(data === "done"){
+                        window.location.href = `/oreder/cancelled?id=${status}`;
+                    }else if(data === "wrong"){
+                        location.reload();
+                    }
+                })
+        }
+    </script>
+    <%- include('../layouts/footer.ejs') %>

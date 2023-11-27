@@ -1,0 +1,153 @@
+<%- include('./layouts/headerUser.ejs') %>
+
+
+<div class="container mt-lg-2 justify-content-center shadow rounded-3 ">
+  <div class="row  mb-3 bg-white  shadow rounded-3">
+    <div class="col-md-6 p-3 shadow rounded-3">
+        <div class="toast-container position-fixed top-0 end-0 p-3">
+           
+        </div>
+        <div class="row">
+            <div  class="col-lg-2 p-1">
+                <% data.image.forEach((data) => { %>
+                 <div class="container-fluid" onclick="changeImage('<%= data %>')" id="setImage">   
+                   <img src=" ../../productImages/<%= data %>" class="card-img-top align-self-center pt-2 rounded-3" alt="image" style="height: 80px;width: 80px;" >
+                </div>
+                <% }) %>
+            </div>
+            <div class="col-lg-10 p-1" id="img-container" onpointerover="zoomImage()">
+                <img src=" ../../productImages/<%= data.image[0] %>"  id="zoom-image" class="card-img-top align-self-center p-2 rounded-3" alt="image" id="viewImage" style="height: 450px;width: 450px;" >
+            </div>
+            
+        </div>
+        
+    </div>
+    <div class="col-md-6 pt-5 shadow rounded-3">
+        <div class="container-fluid pt-lg-2">
+            <h6><%= data.brand %></h6>
+        </div>
+        <div class="container-fluid pt-1">
+            <span><%= data.product_name %></span>
+        </div>
+        <div class="container-fluid mt-lg-2 pt-3">
+            <h5><%= data.price %></h5>
+        </div>
+        <div class="container-fluid mt-lg-4">
+            <span>Select Size (Age Group)</span>
+            <h6 class="pt-2"><%= data.size %></h6>
+        </div>
+        <div class="container-fluid mt-lg-4">
+            <div class="row justify-content-lg-between pt-lg-4">
+                <div class="col-lg-6 text-lg-end p-1">
+                    <button class="btn" id="addToBag" style="width:200px;height: 50px;" onclick="addToBag('<%= data._id %>')" >Add to Bag</button>
+                </div>
+                <div class="col-lg-6 p-1">
+                    <button class="btn  " id="wishlist" style="width:200px;height: 50px;" onclick="addToWishlist('<%= data._id %>')" >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                        </svg>
+                      <span>Wishlist</span>
+                    </button>
+                </div>
+            </div>
+           <span id="errorr"></span>
+           <div class="toast-container position-fixed top-0 end-0 p-3">
+           
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://unpkg.com/js-image-zoom@0.7.0/js-image-zoom.js" type="application/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/3.0.8/jquery.elevatezoom.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zoom.js/0.0.1/zoom.min.js" integrity="sha512-OhJxb3F/IiF96I1C2hoqRw8iu54GLjgaw/Bl0SRBuuK2qtPqgpKh5m15dSJxub1GwUgxVGzsBotW742Iva4Y6w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zoom.js/0.0.1/zoom.js" integrity="sha512-6E6ANOHjAoSVKVdprNwFYCmjBSBak4ieFbj4AYdRdzA8lLvIdEwwJbV93FO1SFKcvghYBtGP6DrcBUEjOlW0DA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+ 
+
+
+   function zoomImage(){
+        var options1 = {
+            width: 400,
+            zoomWidth: 500,
+            offset: {vertical: 0, horizontal: 10},
+            
+        };
+        new ImageZoom(document.getElementById("img-container"), options1);
+   }
+
+function showToast(message, type) {
+   
+  const toastContainer = document.querySelector('.toast-container');
+
+  const toast = document.createElement('div');
+  toast.className = `toast bg-${type} text-white`;
+  toast.setAttribute('role', 'alert');
+  toast.setAttribute('aria-live', 'assertive');
+  toast.setAttribute('aria-atomic', 'true');
+
+  const toastBody = document.createElement('div');
+  toastBody.className = 'toast-body';
+  toastBody.textContent = message;
+
+  toast.appendChild(toastBody);
+  toastContainer.appendChild(toast);
+
+  const bsToast = new bootstrap.Toast(toast);
+  bsToast.show();
+}
+
+//to change display image on click
+function changeImage(image1){
+       console.log(image1);
+        const image =  document.getElementById('zoom-image');
+        image.src = `../../productImages/${image1}`;
+    }
+
+
+    //to add to cart
+   function addToBag(id)
+   {
+    const url = `api/addtoBag?id=${id}`;
+    fetchBag(url,id);
+   }
+    
+   function addToWishlist(id)
+   {
+    const url = `api/addtoWishlist?id=${id}`;
+    fetchBag(url,id);
+   }
+//fetch add to cart
+    function fetchBag(url,id){
+       
+        const options = {
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({id:id})
+        }
+        
+        fetch(url,options)
+        .then(response=> response.json())
+        .then(data=>{
+            console.log(data);
+            
+            if(data == "exists"){
+                //document.getElementById("errorr").innerHTML = "already exists";
+                showToast('already exists!', 'success');
+            } else if(data == "login"){
+                //document.getElementById("errorr").innerHTML = "Please Login";
+                showToast('Please Login!!!', 'warning');
+            }else{
+                //document.getElementById("errorr").innerHTML = "Success";
+                showToast('Added to cart!!!', 'success');
+            }
+        })
+    }
+   
+</script>
+ 
+<%- include('./layouts/footer.ejs') %>

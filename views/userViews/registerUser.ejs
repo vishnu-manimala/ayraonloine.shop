@@ -1,0 +1,201 @@
+<%- include('./layouts/header_nologout.ejs') %>
+<div class="container">
+  <div class="row justify-content-center mt-3">
+    <div class="col-md-6">
+      <div class="card p-3">
+        <header class="card-header border-0">
+          <h4 class="card-title mt-2 text-center">Sign Up</h4>
+         
+        </header>
+        <div class="toast-container position-fixed top-0 end-0 p-3">
+           
+        </div>
+        <article class="card-body text-center">
+          <% if(typeof message !=='undefined' ) { %>
+            <p style="color: red"><%= message %></p>
+            <% } %>
+          <form action="/register" method="post">
+            <div class="form-group mb-1">
+              <input
+                type="text"
+                name="userName"
+                class="form-control"
+                placeholder="Name"
+                id="name"
+                required
+              />
+            </div>
+            <div class="form-group mb-1">
+              <input
+                type="email"
+                name="userEmail"
+                class="form-control"
+                id="email"
+                placeholder="Email address"
+                onchange="checkEmail()"
+                required
+              />
+              <span id="Email"></span>
+            </div>
+            <div class="form-group mb-1">
+              <input
+                type="number"
+                name="userPhoneNumber"
+                class="form-control"
+                id="phoneNumber"
+                placeholder="Phone Number"
+                onchange="checkNumber()"
+                required
+              />
+              <span id="number"></span>
+            </div>
+           <div class="form-group mb-1">
+              <input
+                type="password"
+                name="password"
+                class="form-control"
+                id="password"
+                placeholder="Password"
+                onchange="checkPassword(),enable()"
+                required
+              />
+              <span id="Password"></span>
+            </div>
+          <!--    <div class="form-group">
+              <input
+                type="password"
+                name="confirmPassword"
+                class="form-control"
+                id="confirmPassword"
+                placeholder="Confirm Password"
+                onchange="confirmPassword1()"
+                required
+              />
+              <span id="Password2"></span>
+            </div> -->
+            <div
+              class="form-group mt-2"
+              style="
+                width: auto;
+                display: block;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <button
+                type="submit"
+                id="sendOTP"
+                class="btn  btn-block text-black"
+                style="width: auto; background-color: palevioletred; "
+                disabled
+              >
+                Send OTP
+              </button>
+             
+            </div>
+            <a href="/login" >login now!!!</a>
+          </form>
+        </article>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+function showToast(message, type) {
+   
+   const toastContainer = document.querySelector('.toast-container');
+ 
+   const toast = document.createElement('div');
+   toast.className = `toast bg-${type} text-white`;
+   toast.setAttribute('role', 'alert');
+   toast.setAttribute('aria-live', 'assertive');
+   toast.setAttribute('aria-atomic', 'true');
+ 
+   const toastBody = document.createElement('div');
+   toastBody.className = 'toast-body';
+   toastBody.textContent = message;
+ 
+   toast.appendChild(toastBody);
+   toastContainer.appendChild(toast);
+ 
+   const bsToast = new bootstrap.Toast(toast);
+   bsToast.show();
+ }
+  function checkEmail() {
+    let emailId = document.getElementById("email").value;
+    console.log("emailId" + emailId);
+
+    if (/^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/.test(emailId) == false) {
+     
+      //document.getElementById("Email").innerHTML = "Please enter valid email ";
+      const message = "Please enter valid email "
+      showToast(message, 'warning')
+      document.getElementById("email").style.borderColor = "red";
+      return false;
+    } else {
+      document.getElementById("Email").innerHTML = "";
+      document.getElementById("email").style.borderColor = "green";
+      return true;
+    }
+  }
+
+  function checkNumber() {
+    let phone = document.getElementById("phoneNumber").value;
+    const message = document.getElementById("number");
+    console.log("phone :" + phone);
+    if (phone.length < 10 || phone.length > 10) {
+     // message.innerHTML = "please Enter a valid phone number";
+      const messages = "please Enter a valid phone number"
+      showToast(messages, 'warning')
+      document.getElementById("phoneNumber").style.borderColor = "red";
+      return false;
+    } else {
+      message.innerHTML = "";
+      document.getElementById("phoneNumber").style.borderColor = "green";
+      return true;
+    }
+  }
+  function checkPassword() {
+    let password = document.getElementById("password").value;
+    const message = document.getElementById("Password");
+    console.log("password :" + password);
+    if (password.length < 8) {
+      //message.innerHTML = "password must be minimum 8 characters";
+      const messages = "password must be minimum 8 characters"
+      showToast(messages, 'warning')
+      document.getElementById("password").style.borderColor = "red";
+      document.getElementById("sendOTP").setAttribute("disabled", "true");
+      return false;
+    } else {
+      message.innerHTML = "";
+      document.getElementById("password").style.borderColor = "green";
+      return true;
+    }
+  }
+
+  // function confirmPassword1(){
+  //   let password2 = document.getElementById("confirmPassword").value;
+  //   console.log(password2)
+  //    if(password2.match(password)){
+  //     document.getElementById("Password2").innerHTML="";
+  //     document.getElementById("confirmPassword").style.borderColor = "green";
+  //      return true
+     
+  //      }else{
+  //       document.getElementById("Password2").innerHTML="Password not match";
+  //     return false
+  //      }
+  //     }
+  
+  function enable() {
+   
+    if ( document.getElementById("password").style.borderColor == "green") {
+      document.getElementById("sendOTP").removeAttribute("disabled");
+      return true;
+    }
+  }
+</script>
+<%- include('./layouts/footer.ejs') %>

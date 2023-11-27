@@ -1,0 +1,213 @@
+<%- include('./layout/header.ejs') %>
+    <div class="container mt-5">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Add Products</h4>
+                    <form action="/admin/products/add_products" method="post" enctype="multipart/form-data">
+                        <p class="card-description"> </p>
+                        <div class="row m-1 pt-4">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Product Name</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="productName"
+                                            placeholder="Product Name" required/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Brand Name</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="brandName"
+                                            placeholder="Brand Name" required/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Category</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" name="category" required>
+                                            <%for(let i=0;i<data.length;i++) { %>
+                                                <option value="<%= data[i].categoryName %>">
+                                                    <%= data[i].categoryName %>
+                                                </option>
+                                                <% } %>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Price</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" type="number" placeholder="Price" name="price" placeholder="Price" required />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Color </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="color" placeholder="Color" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Size</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="size" placeholder="size" required />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-1">
+                            <!-- <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Description</label>
+                                    <div class="col-sm-9">
+                                        <textarea type="text" class="form-control" placeholder="Description" name="description"></textarea>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label ">Quantity</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="quantity"
+                                            placeholder="Quantity" required />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group ps-4">
+                            <label for="">Discription*</label>
+                            <textarea class="form-control " placeholder="Description" name="description" rows="4"
+                                required></textarea>
+                        </div>
+                        <div class="form-group ">
+                            <label>Main Image</label>
+                            <div class=" container d-flex m-2 justify-content-between">
+                                
+                                <input type="file" id="mainImageInput" class="form-control me-1" name="mainImage" accept="image/*"  onchange="mainImageValidation()">
+                               
+                            </div>
+                        </div>
+                        
+                        <div id="mainImageErrorContainer"></div>
+                        <div class="form-group ">
+                            <label>Images</label>
+                            <div class="form-group d-flex m-2 justify-content-between">
+                            
+                                <div class=" container d-flex m-2 justify-content-between">
+                                    <input type="file" id="imageInput" class="form-control me-1" name="image" accept="image/*" onchange="imageValidation()" multiple >
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        <div id="errorContainer"></div>
+                       
+                        <div class="form-group text-center m-3">
+
+                            <button class=" btn btn-primary "  type="submit">Submit</button>
+
+                        </div>
+                    </form>
+                    <!-- <form action="" method="post">
+                        <input type="text"/>
+                        <button type="submit"></button>
+                    </form > -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+   
+       function imageValidation() {
+      
+                // preventDefault(); // Prevent form submission
+
+                var fileInput = document.getElementById('imageInput');
+                var files = fileInput.files;
+                
+                var fileSizeLimit = 5 * 1024 * 1024; // 5MB (adjust as needed)
+                var allowedExtensions = ['jpg', 'jpeg', 'png', 'gif','webp'];
+            for(let i=0;i<files.length;i++){
+
+                 // Validate file size
+                 var file = files[i];
+                if (file.size > fileSizeLimit) {
+                    showError('File size exceeds the limit of 5MB.');
+                    return;
+                }
+
+                // Validate file extension
+                var fileNameParts = file.name.toLowerCase().split('.');
+                var fileExtension = fileNameParts[fileNameParts.length - 1];
+                if (!allowedExtensions.includes(fileExtension)) 
+                {
+                    showError('Invalid file extension. Only JPG, JPEG, PNG, and GIF files are allowed.'+file.name);
+                    return;
+                }
+            }
+               
+
+                // Perform additional validations if needed (e.g., image dimensions)
+
+               
+            };
+
+            function showError(message) {
+                var errorContainer = document.getElementById('errorContainer');
+                errorContainer.innerHTML = message;
+            }
+
+
+
+            function mainImageValidation() {
+          
+                // preventDefault(); // Prevent form submission
+
+                var fileInput = document.getElementById('mainImageInput');
+                var files = fileInput.files;
+                
+                var fileSizeLimit = 5 * 1024 * 1024; // 5MB (adjust as needed)
+                var allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+            
+
+                 // Validate file size
+                 var file = files[0];
+                if (file.size > fileSizeLimit) {
+                    showError('File size exceeds the limit of 5MB.');
+                    return;
+                }
+
+                // Validate file extension
+                var fileNameParts = file.name.toLowerCase().split('.');
+                var fileExtension = fileNameParts[fileNameParts.length - 1];
+                if (!allowedExtensions.includes(fileExtension)) 
+                {
+                    showMainImageError('Invalid file extension. Only JPG, JPEG, PNG, and GIF files are allowed.'+file.name);
+                    return;
+                }
+        
+               
+
+                // Perform additional validations if needed (e.g., image dimensions)
+
+               
+            };
+
+            function showMainImageError(message) {
+                var errorContainer = document.getElementById('mainImageErrorContainer');
+                errorContainer.innerHTML = message;
+            }
+    </script>
+    <%- include('./layout/footer.ejs') %>

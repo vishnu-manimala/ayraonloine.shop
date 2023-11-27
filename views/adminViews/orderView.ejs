@@ -1,0 +1,320 @@
+<%- include('./layout/header.ejs') %>
+<div class="container-fluid mt-lg-2">
+  <div class="row justify-content-center m-1 mb-3">
+    <div class="col-md-2 bg-white rounded pt-3">
+      <div class="row d-flex justify-content-between p-2">
+        <span id="userdata" style="display: none;"></span>
+        <div class="col-6 ">
+          <h6> Filters</h6>
+        </div>
+        <div class="col-6 ">
+          <a class="text-decoration-none" style="color: palevioletred;" onclick="clearAll()"><span>Clear all</span></a>
+        </div>
+      </div>
+      <div class="container mt-lg-3">
+        <span class="m-1 ">CATEGOSRIES</span>
+        
+      
+        <div class=" d-flex mt-lg-2" href="" >
+          <div class=" align-items-start flex-column justify-content-center ps-2  ">
+            <input type="checkbox" id="categoryCheckBox" onclick="getCategory('Delivered')" value="i " class="category-checkbox">
+            <label for="">
+ Delivered
+            </label>
+          </div>
+        </div>
+        <div class=" d-flex mt-lg-2" href="" >
+          <div class=" align-items-start flex-column justify-content-center ps-2  ">
+            <input type="checkbox" id="categoryCheckBox" onclick="getCategory('cancel')" value="i " class="category-checkbox">
+            <label for="">
+ Cancelled
+            </label>
+          </div>
+        </div>
+        <div class=" d-flex mt-lg-2" href="" >
+          <div class=" align-items-start flex-column justify-content-center ps-2  ">
+            <input type="checkbox" id="categoryCheckBox" onclick="getCategory('returned')" value="i " class="category-checkbox">
+            <label for="">
+ Returned
+            </label>
+          </div>
+        </div>
+      
+      </div>
+    </div>
+    <div class="col-md-10">
+  <div class="container mt-5 mb-5 ">
+    <div class="row ">
+      <div class="col-lg-12 grid-margin stretch-card  ">
+        <div class="card bg-white shadow">
+          <div class="card-body ">
+            <div class="row d-flex justify-content-between">
+              <div class="col-lg-4">
+                <h4 class="card-title m-4 ">Order List</h4>
+              </div>
+              <div class="col-lg-8 text-end">
+                <div class="row ">
+                  <div class="col ">
+                  
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+           
+            <table class="table table-striped pt-4">
+              <thead>
+                <tr>
+                  <th> orderId </th>
+               
+                  <th> status </th>
+                  <th> Cancle Req </th>
+                  <th>Return Req </th>
+                  <th> products </th>
+                  <th> payment </th>
+                  <th> createdAt </th>
+                  <th> Exp. Delivery </th>
+                  <th> Set status </th>
+              
+                </tr>
+              </thead>
+              <tbody id="orderBody">
+                <% if(data){ %>
+
+                    <% for(let i=0;i<data.length;i++){ %>
+
+                    <tr>
+                        <td>
+                            <a href="/admin/orderview?id=<%= data[i].orderId %>"><%= data[i].orderId %></a>
+                          </td>
+                    
+                      <td class="py-1">
+                        <%= data[i].status %>
+                      </td>
+                      <td>
+                        <%= data[i].orderCancleRequest %>
+                      </td>
+                      <td>
+                        <%= data[i].orderReturnRequest %>
+                      </td>
+                      <td class="py-1">
+                        
+                       
+                      </td>
+                      <td>
+                        <%= data[i].payment.method %><br>
+                        Rs.<%= data[i].payment.amount %>
+                      </td>
+                      <td>
+                       <% const createdAt=new Date(data[i].createdAt);%>
+
+                        <% const trimmedDateStr=createdAt.toString().substring(0, 15);%>
+                        <%= trimmedDateStr %>
+                      </td>
+                      <td>
+                        <% const date=new Date(data[i].expectedDelivery);%>
+
+                        <% const trimmedDate=date.toString().substring(0, 15);%>
+                        <%= trimmedDate %>
+                      </td>
+                      <td>
+                        <% if(data[i].status == 'confirm'){ %>
+
+                          <button class="btn bg-transparent border-0" onclick="setdelivered('<%= data[i]._id %>','Delivered')"> Delivered</button>
+
+                       <% }else if(data[i].status == 'return requested' ) { %>
+                        <button class="btn bg-transparent border-0" onclick="setdelivered('<%= data[i]._id %>','return Initialised')"> return Initialised</button>
+                        <% }else if(data[i].status == 'return Initialised' ) { %>
+                          <button class="btn bg-transparent border-0" onclick="setdelivered('<%= data[i]._id %>','returned')">returned</button>
+                       <% } else if(data[i].status == "returned") {%>
+                        <button class="btn bg-transparent border-0" onclick="setdelivered('<%= data[i]._id %>','payment return Initialised')">payment return Initialised</button>
+                        <% } else if(data[i].status == "payment return Initialised") {%>
+                          <button class="btn bg-transparent border-0" onclick="setdelivered('<%= data[i]._id %>','payment returned')">payment returned</button>
+                       <% }else { %>
+                        <div class="row justify-content-center pt-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                          <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+                          <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+                        </svg>
+                      </div>
+                       <% } %>
+                       
+                      </td>
+                    </tr>
+                    <% } %>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav aria-label="...">
+      <div class="mt-1" >
+      <ul class="pagination" id="paginationDiv">
+        <% for(let i=1;i<=count;i++){ %>
+        <li class="page-item ">
+          <a class="page-link"  onclick="paginate('<%= i %>')"><%= i %></a>
+        </li>
+       <% } %>
+      </ul>
+    </div>
+    </nav>
+  </div>
+</div>
+</div>
+</div>
+  <script>
+    let categoryCheckBox = new Array();
+    function setdelivered(orderId,status){
+        const url = '/admin/api/setStatus';
+        
+        const options = {
+          method: 'POST',
+          headers: {
+          'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ orderId,status })
+      }
+    fetchStatus(url,options)
+    }
+
+function fetchStatus(url,options){
+    fetch(url, options)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      location.reload();
+      });
+    }
+
+    function fectchCount(url,options){
+  fetch(url+'?count=1', options)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+     
+      const productContainer = document.getElementById('paginationDiv');
+                        productContainer.innerHTML = '';
+                     
+         for(let i=1;i<=data;i++) {
+          
+          const item = `
+         
+          <li class="page-item ">
+                <a class="page-link"  onclick="paginate(${i})">${i}</a>
+              </li>
+        `
+        productContainer.innerHTML += item
+        
+        };
+    })
+   
+}
+
+    function fetchOrder(url,options){
+    fetch(url, options)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      const productContainer = document.getElementById('orderBody');
+                        productContainer.innerHTML = '';
+    data.forEach( data => {
+      const item = `
+  <tr>
+    <td>${data.orderId}</td>
+    <td class="py-1">${data.status}</td>
+    <td>${data.orderCancelRequest}</td>
+    <td>${data.orderReturnRequest}</td>
+    <td class="py-1"></td>
+    <td>${data.payment.method}<br>Rs. ${data.payment.amount}</td>
+    <td>${new Date(data.createdAt).toString().substring(0, 15)}</td>
+    <td>${new Date(data.expectedDelivery).toString().substring(0, 15)}</td>
+    <td>
+      <% if (data.status === 'confirm') { %>
+        <button class="btn bg-transparent border-0" onclick="setdelivered('<%= data._id %>','Delivered')">Delivered</button>
+      <% } else if (data.status === 'return requested') { %>
+        <button class="btn bg-transparent border-0" onclick="setdelivered('<%= data._id %>','return Initialised')">Return Initialised</button>
+      <% } else if (data.status === 'return Initialised') { %>
+        <button class="btn bg-transparent border-0" onclick="setdelivered('<%= data._id %>','returned')">Returned</button>
+      <% } else if (data.status === 'returned') { %>
+        <button class="btn bg-transparent border-0" onclick="setdelivered('<%= data._id %>','payment return Initialised')">Payment Return Initialised</button>
+      <% } else if (data.status === 'payment return Initialised') { %>
+        <button class="btn bg-transparent border-0" onclick="setdelivered('<%= data._id %>','payment returned')">Payment Returned</button>
+      <% } else { %>
+        <div class="row justify-content-center pt-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+            <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+            <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+          </svg>
+        </div>
+      <% } %>
+    </td>
+  </tr>
+`;
+
+productContainer.innerHTML += item;
+
+
+            });
+
+      });
+    }
+function paginate(page){
+  const url = '/admin/paginate';
+  const limit = 8;
+  const skip = 8*(page-1);
+  const query = {};
+  const options = {
+    method:'POST',
+    headers :{
+      'Content-Type':'application/json'
+    },
+    body:JSON.stringify({limit,skip,query})
+  }
+  fetchOrder(url, options)
+  }
+
+function getCategory(name){
+
+  const categoryFilter = name;
+  
+  if(categoryCheckBox.includes(name)){
+    
+    const index = categoryCheckBox.indexOf(name);
+    categoryCheckBox.splice(index,1);
+    console.log(categoryCheckBox);
+
+  }else{
+    categoryCheckBox.push(name);
+    console.log(categoryCheckBox)
+  }
+  
+  let query;
+  if(categoryCheckBox.length>0){
+
+    query = { status: { $in: categoryCheckBox } }
+  }else{
+    query = {};
+   
+  }
+  
+  const url = "/admin/paginate"
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ limit: 8, skip:0, query:query })
+  };
+  fectchCount(url,options)
+  fetchOrder(url,options);
+ 
+
+}
+
+function clearAll(){
+  location.reload();
+}
+  </script>
+<%- include('./layout/footer.ejs') %>

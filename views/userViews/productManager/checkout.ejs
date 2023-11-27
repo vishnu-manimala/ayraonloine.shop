@@ -1,0 +1,681 @@
+<%- include('../layouts/headerUser.ejs') %>
+    <div class="toast-container position-fixed top-30 end-50 p-3">
+
+    </div>
+    <div class="container-fluid mt-lg-3">
+        <div class="row justify-content-center m-1  mb-3 ">
+
+            <!-- check out details form -->
+            <div class="col-md-9">
+
+
+                <!-- Logged in name and phone -->
+
+                <div class="container-fluid bg-white pb-md-4" style="border-radius: 10px;">
+                    <!-- <li class="col" style="font-size:small;font-weight: bold;"><%= userdata.name %> </li> -->
+                    <div class="row d-flex pt-1 mb-1 "
+                        style="background-image: url('https://wallpapercave.com/wp/wp3196949.jpg');background-repeat:no-repeat; background-size:cover; ">
+                        <div class="col-1 pt-1 justify-content-end ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-check2-circle" viewBox="0 0 16 16" style="color: #38b4d0;">
+                                <path
+                                    d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z" />
+                                <path
+                                    d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z" />
+                            </svg>
+                        </div>
+                        <div class=" col-11  p-2 text-black-50 justify-content-lg-start">
+                            1. Logged In
+                        </div>
+
+                    </div>
+                    <span class="ps-md-5">
+                        <%= userdata.name %>
+                    </span>
+                    <span class="ps-md-5">
+                        <%= userdata.phone %>
+                    </span>
+                </div>
+
+                <!-- #############################################################################################################################  -->
+                <!-- Items Section -->
+                <div class="container-fluid bg-white pb-md-4 mt-2" style="border-radius: 10px;">
+                    <!-- <li class="col" style="font-size:small;font-weight: bold;"><%= userdata.name %> </li> -->
+                    <div class="row d-flex pt-1 mb-1 "
+                        style="background-image: url('https://wallpapercave.com/wp/wp3196949.jpg');background-repeat:no-repeat; background-size:cover; ">
+                        <div class="col-1 pt-1 justify-content-end ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-check2-circle" viewBox="0 0 16 16" style="color: #38b4d0;">
+                                <path
+                                    d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z" />
+                                <path
+                                    d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z" />
+                            </svg>
+                        </div>
+
+
+                        <div class=" col-11  p-2 text-black-50 justify-content-lg-start">
+                            2. Items In Bag
+                        </div>
+
+
+                    </div>
+                    <% if(productData){ %>
+                        <span class="ps-md-5">
+                            No of Items : <%= productData.length %>
+                        </span>
+                        <% } %>
+                </div>
+                <!-- Address Section -->
+
+                <div class="container-fluid  bg-white mt-1 pb-md-4 " style="border-radius: 10px;display: none; "
+                    id="confirmedAddress">
+                    <!-- <li class="col" style="font-size:small;font-weight: bold;"><%= userdata.name %> </li> -->
+                    <div class="row d-flex p-1 "
+                        style="background-image: url('https://wallpapercave.com/wp/wp3196949.jpg');background-repeat:no-repeat; background-size:cover; ">
+                        <div class="col-1 pt-1 justify-content-end ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-check2-circle" viewBox="0 0 16 16" style="color: #38b4d0;">
+                                <path
+                                    d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z" />
+                                <path
+                                    d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z" />
+                            </svg>
+                        </div>
+                        <div class=" col-10  p-2 text-black-50 justify-content-lg-start">
+                            3. Delivery Address
+                        </div>
+                        <div class="col-1 pt-1 justify-content-end ">
+                            <button class="btn border-0 bg bg-white" onclick="editSelectedAddress()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-pencil-fill" viewBox="0 0 16 16" style="color: #38b4d0;">
+                                    <path
+                                        d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+                                </svg></button>
+                        </div>
+                    </div>
+                    <div class="container d-flex list-unstyled ps-md-5">
+                        <span class="justify-content-start" id="addresName">
+
+                        </span>
+                        <span class="justify-content-start ps-2" id="addressPhone">
+
+                        </span>
+                        <span class="justify-content-start ps-2" id="addressHouseNumber">
+                        </span>
+                        <span class="justify-content-start ps-2" id="addressAddress">
+
+                        </span>
+                        <span class="justify-content-start ps-2" id="addressCity">
+
+                        </span>
+                    </div>
+                    <div class="container d-flex list-unstyled ps-md-5">
+                        <span class="justify-content-start ps-2" id="addressState">
+
+                        </span>
+                        <span class="justify-content-start ps-2" id="addressPincode">
+
+                        </span>
+                        <span class="justify-content-start ps-2" id="addressLandmark">
+
+                        </span>
+
+                    </div>
+                    <div class="container d-flex list-unstyled ps-md-5">
+
+                        <span class="justify-content-start ps-2">
+                            Alternate Phone Number:
+                        </span>
+
+                        <span class="justify-content-start ps-2" id="addressAlternatePhone">
+
+                        </span>
+                    </div>
+                </div>
+
+
+                <div class=" bg-white mt-3 pb-md-4 " style="border-radius: 10px;" id="selectAddress">
+                    <!-- <li class="col" style="font-size:small;font-weight: bold;"><%= userdata.name %> </li> -->
+                    <div class="container-fluid p-2 " style="background-color: palevioletred;"> <span class="ps-5">3.
+                            Delivery
+                            Address</span>
+                    </div>
+                    <div class=" mt-lg-2 ps-5" href="" id="addressList">
+                        <% if(userdata.address.items.length>0){ %>
+
+                            <% userdata.address.items.forEach((element)=>{ %>
+                                <div class=" row d-flex ps-lg-3 pt-2">
+                                    <div class="col-md-12 p-lg-1" id="profileDetails">
+
+                                        <div class="container d-flex list-unstyled">
+                                            <input type="radio" name="option" value="<%= element._id %>" id="option1"
+                                                onclick="selectAddres('<%= JSON.stringify(element)  %>')">
+                                            <span class="justify-content-start ps-3">
+                                                kkja<%= element.name %>,
+                                            </span>
+                                            <span class="justify-content-start">
+                                                <%= element.phone %>
+                                            </span>
+                                        </div>
+                                        <div class="container d-flex list-unstyled">
+                                            <span>
+                                                <%= element.HouseNum %>,
+                                            </span>
+                                            <span>
+                                                <%= element.address %>,
+                                            </span>
+                                            <span>
+                                                <%= element.city %>,
+                                            </span>
+                                            <span>
+                                                <%= element.state %>,
+                                            </span>
+                                            <span class="ps-1">
+                                                <%= element.pincode %>,
+                                            </span>
+                                            <span>
+                                                <%= element.landmark %>
+                                            </span>
+                                            <%if( element.alternatePhone){ %>
+                                                <span>
+                                                    Altenate Phone:
+                                                </span>
+                                                <span class="ps-1">
+                                                    <%= element.alternatePhone %>
+                                                </span>
+                                                <%} %>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% }) %>
+                                    <% }else{ %>
+                                        <div class="row d-flex justify-content-center text-center p-3">
+
+                                            <a href="/profile/address_manager">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-journal-plus" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd"
+                                                        d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5z" />
+                                                    <path
+                                                        d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z" />
+                                                    <path
+                                                        d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" />
+                                                </svg>
+                                                <span>Add Addres </span>
+                                            </a>
+                                        </div>
+
+                                        <% } %>
+                    </div>
+
+                </div>
+
+
+                <div class="container-fluid bg-white pb-md-4 mt-2" style="border-radius: 10px;display: none;" id="COD">
+                    <!-- <li class="col" style="font-size:small;font-weight: bold;"><%= userdata.name %> </li> -->
+                    <div class="row d-flex pt-1 mb-1 "
+                        style="background-image: url('https://wallpapercave.com/wp/wp3196949.jpg');background-repeat:no-repeat; background-size:cover; ">
+                        <div class="col-1 pt-1 justify-content-end ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-check2-circle" viewBox="0 0 16 16" style="color: #38b4d0;">
+                                <path
+                                    d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z" />
+                                <path
+                                    d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z" />
+                            </svg>
+                        </div>
+                        <div class=" col-11  p-2 text-black-50 justify-content-lg-start">
+                            4. COD
+                        </div>
+                    </div>
+                    <div class="pt-1">
+                        <div class="text-center">
+                            <span>Selected Payment Method: COD</span>
+                        </div>
+                    </div>
+                    <div class="container-fluid d-flex justify-content-center mt-2">
+                        <button class="btn " onclick="checkOutBlock('<%= JSON.stringify(productData)  %>','COD')">
+                            Checkout
+                        </button>
+                    </div>
+                </div>
+                <div class="container-fluid bg-white pb-md-4 mt-2" style="border-radius: 10px; display: none;" id="upi">
+                    <!-- <li class="col" style="font-size:small;font-weight: bold;"><%= userdata.name %> </li> -->
+                    <div class="row d-flex pt-1 mb-1 "
+                        style="background-image: url('https://wallpapercave.com/wp/wp3196949.jpg');background-repeat:no-repeat; background-size:cover; ">
+                        <div class="col-1 pt-1 justify-content-end ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-check2-circle" viewBox="0 0 16 16" style="color: #38b4d0;">
+                                <path
+                                    d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z" />
+                                <path
+                                    d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z" />
+                            </svg>
+                        </div>
+                        <div class=" col-11  p-2 text-black-50 justify-content-lg-start">
+                            4. UPI
+                        </div>
+                    </div>
+                    <div class="pt-1">
+                        <div class="text-center">
+                            <span>Selected Payment Method: UPI</span>
+                        </div>
+                    </div>
+                    <div class="container-fluid d-flex justify-content-center mt-2">
+                        <button class="btn " onclick="checkOutBlock('<%= JSON.stringify(productData)  %>','UPI')">
+                            Checkout
+                        </button>
+                    </div>
+                </div>
+                <div class=" bg-white mt-3 pb-md-4" id="paymentOptions" style="border-radius: 10px; display: none;">
+                    <!-- <li class="col" style="font-size:small;font-weight: bold;"><%= userdata.name %> </li> -->
+                    <div class="container-fluid p-2 " style="background-color: palevioletred;"> <span class="ps-4">4.
+                            Payment Options</span></div>
+                    <div class=" mt-lg-2" href="">
+
+                    </div>
+                    <div class=" mt-lg-2" href="">
+                        <div class=" d-flex mt-lg-2  ps-md-4" href="">
+                            <div class=" align-items-start flex-column justify-content-center ps-2  ">
+                                <input type="radio" name="option" onclick="getCOD()" class="category-checkbox m-2 ">
+                                <label for="category">
+                                    Cash on Delivery
+                                </label>
+                            </div>
+                        </div>
+                        <div class=" d-flex mt-lg-2 ps-md-4" href="">
+                            <div class=" align-items-start flex-column justify-content-center ps-2  ">
+                                <input type="radio" id="paymentCheckBox" name="option" onclick="getUpi()"
+                                    class="category-checkbox m-2">
+                                <img src="/productImages/UPI.gif" class="m-1" style="width: 20px; height: 20px;">
+                                <label for="category" class="m-2">
+                                    UPI
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <span id="err"></span>
+
+                </div>
+            </div>
+
+
+            <!-- Price Details-->
+            <div class="col-md-3 bg-white rounded pt-4 pb-2">
+                <span>PRICE DETAILS</span>
+                <% let toatalPrice=0; %>
+                    <% for(let i=0;i<productData.length;i++){ %>
+                        <!-- <% toatalPrice+=parseInt(productData[i].price) %> -->
+                        <% } %>
+
+
+                            <div class="container mt-lg-3">
+                                <div class="row d-flex justify-content-between">
+                                    <div class="col price" style="font-size:small;font-weight: bold;">Price (<%=
+                                            totalItems %> Items)</div>
+                                    <div class="col actual-price" id="total">
+                                        <%= totalPrice %>
+                                    </div>
+                                </div>
+
+                                <div class="row d-flex justify-content-between mt-md-1">
+                                    <div class="col price" style="font-size:small;font-weight: bold;">Delivery
+                                        Charges</div>
+                                    <div class="col actual-price">Free</div>
+                                </div>
+                            </div>
+                            <div class="container mt-lg-3" id="showSelectedCoupon" style="display: none;">
+                                <h6>Applied Coupon</h6>
+                                <div class="row d-flex justify-content-between mt-md-1">
+                                    <div class="col price" style="font-size:small;font-weight: bold;">
+                                        <h6 id="couponName"></h6>
+                                    </div>
+                                    <div class="col actual-price">
+                                        <h6 id="couponValue"></h6>
+                                    </div>
+                                    <div class="col actual-price" onclick="cancel()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                            <path
+                                                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                            <path
+                                                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container mt-lg-3">
+
+                                <% if(coupons.length>0){ %>
+
+                                    <button class="container-fluid btn border-0 bg-transparent" id="showCoupon"
+                                        onclick="showCoupons()">
+                                        <span>Appy Coupons</span>
+                                        <div class="row d-flex justify-content-between mt-md-1">
+                                            <div class="col price" style="font-size:small;font-weight: bold;">Show
+                                                coupons</div>
+                                            <div class="col actual-price">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                    fill="currentColor" class="bi bi-ticket-detailed"
+                                                    viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M4 5.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5ZM5 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H5Z" />
+                                                    <path
+                                                        d="M0 4.5A1.5 1.5 0 0 1 1.5 3h13A1.5 1.5 0 0 1 16 4.5V6a.5.5 0 0 1-.5.5 1.5 1.5 0 0 0 0 3 .5.5 0 0 1 .5.5v1.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 11.5V10a.5.5 0 0 1 .5-.5 1.5 1.5 0 1 0 0-3A.5.5 0 0 1 0 6V4.5ZM1.5 4a.5.5 0 0 0-.5.5v1.05a2.5 2.5 0 0 1 0 4.9v1.05a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-1.05a2.5 2.5 0 0 1 0-4.9V4.5a.5.5 0 0 0-.5-.5h-13Z" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </button>
+                                    <div class="row d-flex justify-content-between mt-md-1">
+                                        <div id="couponSelect" style="display: none;">
+                                            <% coupons.forEach((data)=>{ %>
+                                                <div class="card m-2 p-2">
+                                                    <div class=" row d-flex justify-content-between mt-md-1"
+                                                        onclick="selectedCoupon('<%= JSON.stringify(data) %>')">
+                                                        <div class="col price"
+                                                            style="font-size:small;font-weight: bold;">
+                                                            <h6>
+                                                                <%= data.couponName %>
+                                                            </h6>
+                                                        </div>
+                                                        <div class="col actual-price">
+                                                            <%= data.couponValue %>%
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <% }) %>
+                                                    </select>
+                                        </div>
+                                        <% }else { %>
+                                            <h6> No Coupons Available</h6>
+
+                                            <% } %>
+                                    </div>
+                                    <div  id="applied" style="display: none;">
+                                        <div class="row d-flex justify-content-between pt-2" >
+                                            <div class="col-8 price pt-2" style="font-size:small;font-weight: bold;">
+                                                <span>Applied wallet amount:</span>
+                                            </div>
+                                            <div class="col-2 actual-price pt-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
+                                                    <path d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z"/>
+                                                </svg>
+                                            </div>
+                                            <div class="col-2">
+                                                <button class="btn border-0 bg-transparent" onclick="cancelWallet()">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                                  </svg>
+                                                </button>
+                                            </div>
+                                        </div>  
+                                    </div>
+                                    <section class="container mt-lg-2 " id="walleddata">
+                                        <div class="row d-flex  pt-1">
+                                            <div class="col-8">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-wallet2" viewBox="0 0 16 16">
+                                                    <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499L12.136.326zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484L5.562 3zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-13z"/>
+                                                </svg>
+                                                <span>Wallet</span> 
+                                            </div>
+                                            <div class="col-2">
+                                                <button class="btn bg-transparent border-0" onclick="addWallet('<%= walletdata.cash%>')">apply</button>
+                                            </div>
+                                        </div>
+                                        <% if(parseInt(walletdata.cash)>0){ %>
+                                        
+                                        <div class="row d-flex justify-content-between pt-2" >
+                                            <div class="col price" style="font-size:small;font-weight: bold;">
+                                                <span>you have:</span>
+                                            </div>
+                                            <div class="col actual-price">
+                                                <span >Rs <%= walletdata.cash %></span>
+                                            </div>
+                                        </div>
+                                        <% }else { %>
+                                            <span>Rs <%= walletdata._ %></span>
+                                        <% } %>
+                                    </section>
+                                   
+                                    <div class="divider mt-sm-2" style="border-top:1px solid black"></div>
+
+                                    <div class="container mt-lg-3" style="display: none;" id="couponReduction">
+                                        <div class="row d-flex justify-content-between">
+                                            <div class="col price" style="font-size:small;font-weight: bold;">
+                                                <span>you saved:</span>
+                                            </div>
+                                            <div class="col actual-price">
+                                                <span id="reducedvalue"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="container mt-lg-3">
+                                        <div class="row d-flex justify-content-between mt-md-1">
+                                            <div class="col price" style="font-size:small;font-weight: bold;">Amount
+                                                Payable</div>
+                                            <div class="col actual-price" id="payable">
+                                                <%= totalPrice %>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </section>
+            </div>
+        </div>
+</div>
+
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        <script>
+            let ckeckoutAddres;
+            let totalPriceValue = parseInt(document.getElementById('total').innerHTML);
+            let selctedCoupondata;
+            let savedAmount = 0;
+            let cashInWallest =0;
+            let usedAmount = 0;
+            console.log(totalPriceValue)
+            function showToast(message, type) {
+
+                const toastContainer = document.querySelector('.toast-container');
+
+                const toast = document.createElement('div');
+                toast.className = `toast bg-${type} text-white`;
+                toast.setAttribute('role', 'alert');
+                toast.setAttribute('aria-live', 'assertive');
+                toast.setAttribute('aria-atomic', 'true');
+
+                const toastBody = document.createElement('div');
+                toastBody.className = 'toast-body';
+                toastBody.textContent = message;
+
+                toast.appendChild(toastBody);
+                toastContainer.appendChild(toast);
+
+                const bsToast = new bootstrap.Toast(toast);
+                bsToast.show();
+            }
+
+            function selectAddres(data) {
+                const element = JSON.parse(data);
+                console.log(element)
+                ckeckoutAddres = element;
+                document.getElementById('addresName').innerHTML = element.name;
+                document.getElementById('addressPhone').innerHTML = element.phone;
+                document.getElementById('addressHouseNumber').innerHTML = element.HouseNum;
+                document.getElementById('addressAddress').innerHTML = element.address;
+                document.getElementById('addressCity').innerHTML = element.city;
+                document.getElementById('addressState').innerHTML = element.state;
+                document.getElementById('addressPincode').innerHTML = element.pincode;
+                document.getElementById('addressLandmark').innerHTML = element.landmark;
+                document.getElementById('addressAlternatePhone').innerHTML = element.alternatePhone;
+
+                document.getElementById('selectAddress').style.display = "none";
+                document.getElementById('confirmedAddress').style.display = "block";
+                document.getElementById('paymentOptions').style.display = "block";
+            }
+
+
+
+            function editSelectedAddress() {
+                document.getElementById('confirmedAddress').style.display = "none";
+                document.getElementById('paymentOptions').style.display = "none";
+                document.getElementById('selectAddress').style.display = "block";
+
+
+            }
+
+            function getCOD() {
+                document.getElementById('paymentOptions').style.display = "none";
+                document.getElementById('COD').style.display = "block";
+
+            }
+
+            function getUpi() {
+                document.getElementById('paymentOptions').style.display = "none";
+                document.getElementById('upi').style.display = "block";
+            }
+
+            function showCoupons(data) {
+                document.getElementById('showCoupon').style.display = "none";
+                document.getElementById('couponSelect').style.display = "block"
+            }
+
+            function  addWallet(data){
+                const walletCash =data;
+                if(totalPriceValue>walletCash){
+                    totalPriceValue=totalPriceValue-walletCash;
+                    cashInWallest = 0;
+                    usedAmount=walletCash;
+                }else{
+                    totalPriceValue =0;
+                    cashInWallest= walletCash-totalPriceValue;
+                    usedAmount=totalPriceValue;
+                }
+                document.getElementById('payable').innerHTML = totalPriceValue;applied
+                document.getElementById('walleddata').style.display= 'none';
+                document.getElementById('applied').style.display= 'block';
+            }
+
+            function selectedCoupon(data) {
+                const couponData = JSON.parse(data);
+                selctedCoupondata = couponData;
+                const amount = document.getElementById('total').innerHTML;
+                const percent = parseInt(couponData.couponValue);
+                const price = parseInt(amount);
+                let reducedPercent = (price * percent) / 100;
+                totalPriceValue = price - reducedPercent;
+                savedAmount = reducedPercent;
+                console.log(reducedPercent)
+                document.getElementById('couponSelect').style.display = "none"
+                document.getElementById('couponName').innerHTML = couponData.couponName;
+                document.getElementById('couponValue').innerHTML = couponData.couponValue + "%";
+                document.getElementById('reducedvalue').innerHTML = reducedPercent;
+                document.getElementById('payable').innerHTML = totalPriceValue;
+                document.getElementById('showSelectedCoupon').style.display = "block";
+                document.getElementById('couponReduction').style.display = "block";
+
+                console.log(amount);
+            }
+
+            function cancel() {
+                const amount = document.getElementById('total').innerHTML;
+                totalPriceValue = amount;
+                savedAmount = 0;
+                document.getElementById('payable').innerHTML = amount;
+                document.getElementById('showSelectedCoupon').style.display = "none";
+                document.getElementById('couponReduction').style.display = "none";
+                document.getElementById('showCoupon').style.display = "block";
+            }
+
+            function checkOutBlock(data, payment) {
+                const amount = document.getElementById('payable').innerHTML;
+                if (!totalPriceValue) {
+                    totalPriceValue = amount;
+                }
+                console.log("totalPriceValue : ", totalPriceValue)
+                const productData = JSON.parse(data);
+                const selectAddresId = ckeckoutAddres._id;
+                const paymentMethod = payment;
+
+                console.log("data", selectAddresId, totalPriceValue)
+
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ totalPriceValue, paymentMethod, selectAddresId, selctedCoupondata, usedAmount,cashInWallest })
+                }
+                fetch("/api/checkQuantity", options)
+                    .then(response => response.json())
+                    .then(stock => {
+                        console.log(stock)
+                        if (stock === "blocked") {
+                            window.location.href = '/login'
+                        } else if (stock === "outofstock") {
+                            showToast("Sorry! product Out of stock!!!")
+                            window.location.href = `/kart`;
+                        } else {
+                            const url = '/api/saveOrder';
+                            fetch(url, options)
+                                .then(response => response.json())
+                                .then(data => {
+                                    console.log("upi response >>", data);
+                                    if (data.id) {
+                                        var options = {
+                                            "key": "rzp_test_0wPeTmtyc9nQDT",
+                                            "currency": "INR",
+                                            "name": "Ayra Fashion Store",
+                                            "description": "Test Transaction",
+                                            "image": "https://example.com/your_logo",
+                                            "order_id": data.id,
+                                            "handler": function (response) {
+                                                fetch('/api/saveOrderUpi', {
+                                                    method: 'POST',
+                                                    headers: {
+                                                        'Content-Type': 'application/json'
+                                                    },
+                                                    body: JSON.stringify({ data,cashInWallest })
+                                                }).then(response => response.json())
+                                                    .then(data => {
+                                                        console.log("upi response >>", data);
+                                                        window.location.href = `/checkout/success?id=${data._id}`;
+                                                    })
+                                            },
+                                            "prefill": {
+                                                "name": "Gaurav Kumar",
+                                                "email": "gaurav.kumar@example.com",
+                                                "contact": "9000090000"
+                                            },
+                                            "notes": {
+                                                "address": "Razorpay Corporate Office"
+                                            },
+                                            "theme": {
+                                                "color": "#3399cc"
+                                            }
+                                        };
+                                        const rzp1 = new Razorpay(options);
+                                        rzp1.on('payment.success', function (response) {
+                                            console.log(response)
+
+                                        });
+                                        rzp1.on('payment.cancel', function (response) {
+                                            // Handle payment cancellation
+                                            console.log(response)
+                                            // Reset the UI or perform any other necessary action
+                                        });
+                                        rzp1.open();
+                                    } else if (data == ("err")) {
+                                        document.getElementById("err").innerHTML = "something went wrong"
+                                    }
+                                    else {
+                                        window.location.href = `/checkout/success?id=${data._id}`;
+                                    }
+                                })
+                        }
+                    })
+
+
+
+            }
+        </script>
+        <%- include('../layouts/footer.ejs') %>

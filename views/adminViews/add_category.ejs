@@ -1,0 +1,55 @@
+<%- include('./layout/header.ejs') %>
+    <div class="container-fluid text-center justify-content-center m-5">
+        <div class="row d-flex justify-content-center align-items-center ">
+            <section class="vh-100 gradient-custom">
+                <div class="container">
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                            <div class="card bg-transparent text-white" style="border-radius: 1rem;">
+                                <div class="card-body  text-center">
+
+                                    <div class="mb-md-5 mt-md-4 pb-5">
+
+                                        <h2 class="fw-bold mb-2 text-uppercase text-black pb-4"> Add Category </h2>
+
+                                        <% if(typeof message !=='undefined' ) { %>
+                                            <p style="color: red"><%= message %></p>
+                                            <% } %>
+                                        <form action="" method="post" >
+                                            <!-- Category Name -->
+                                            <div class="form-outline mb-4">
+                                                <input type="text" id="categoryName" name="category_name"
+                                                    class="form-control form-control-lg" placeholder="Category Name"
+                                                     required />
+                                                <!-- <span id="Email"></span> -->
+                                            </div>
+                                          
+                                            <input type="submit" class="btn btn-primary" />
+                                            <!-- <a href="/admin/back">back</a> -->
+                                        </form>
+                                        <!-- <a href="/login">back to login</a> -->
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script>
+        
+    // function checkCategory(data){
+    //     const dataValue = document.getElementById('data-container');
+    //     const categories = dataValue.getAttribute('data');
+    // //     const pattern = categories.map(category => category.categoryName).join('|');
+    // //     const regex = new RegExp(pattern,'i');
+    // //     const input = document.getElementById('categoryName');
+    // //    console.log(regex.test(input.value));
+    //     //alert(category);
+    //     console.log(categories);
+    // }
+    
+    </script>
+    <%- include('./layout/footer.ejs') %>

@@ -1,0 +1,38 @@
+<%- include('./layout/header.ejs') %>
+    <div class="container-fluid text-center justify-content-center mt-5">
+        <div class="row d-flex justify-content-center align-items-center ">
+           
+            <section class="vh-100 gradient-custom">
+                <div class="container">
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                            <div class="card bg-transparent text-white" style="border-radius: 1rem;">
+                                <div class="card-body  text-center">
+
+                                    <div class="mb-md-5 mt-md-4 pb-5">
+
+                                        <h2 class=" mb-2 text-uppercase text-black-50 pb-4"> Edit Category </h2>
+                                        
+
+                                                <form action="/admin/category/edit_category?id=<%= data._id %>" method="post" >
+                                                    <!-- Category Name -->
+                                                    <div class="form-outline mb-4">
+                                                        <input type="text" id="categoryName" name="category_edit"
+                                                            class="form-control form-control-lg" placeholder="<%= data.categoryName %>" 
+                                                           required />
+                                                        <!-- <span id="Email"></span> -->
+                                                    </div>
+                                                    <input type="submit" class="btn btn-primary" />
+                                                    <!-- <a href="/admin/back">back</a> -->
+                                                </form>
+                                                <!-- <a href="/login">back to login</a> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+<%- include('./layout/footer.ejs') %>

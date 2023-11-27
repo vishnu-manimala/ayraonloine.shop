@@ -1,0 +1,109 @@
+<%- include('./layouts/header_nologout.ejs') %>
+<div class="toast-container position-fixed top-0 end-0 p-3">
+           
+</div>
+    <div class="container">
+      <div class="row justify-content-center mt-3">
+        <div class="col-md-6 pt-3">
+          <div class="card">
+            <header class="card-header border-0">
+              <h4 class="card-title mt-2 text-center">Login</h4>
+            </header>
+            <article class="card-body text-center mt-3">
+              <form  action="/login" method="post">
+                
+                <% if(typeof message !=='undefined' ) { %>
+                  <p style="color: green"><%= message %></p>
+                  <% } %>
+                  <span id="hi"></span>
+                <div class="form-group" style="
+                                display: block;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                
+                              "> 
+                
+                  <input type="number" name="phoneNumber" class="no-arrows form-control w-50" id="phoneNumber"
+                    placeholder="Phone number" onchange="checkNumber(),toast('working')" />
+                  
+                </div>
+                <div id="toastContainer"></div>
+                <div>
+                  
+                  <span id="number" class="text-black-50"></span>
+                </div>
+                <div class="form-group pt-2" style="
+                                display: block;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                              ">
+                    <button type="submit" id="sendOTP" class="btn btn-primary btn-block mb-1" style="width: auto" disabled>
+                      Send OTP
+                    </button>
+                </div>
+                <a class="text-decoration-none " href="/userlogin">Login with password</a>
+              </form>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+
+//toast message
+
+function showToast(message, type) {
+   
+   const toastContainer = document.querySelector('.toast-container');
+ 
+   const toast = document.createElement('div');
+   toast.className = `toast bg-${type} text-white`;
+   toast.setAttribute('role', 'alert');
+   toast.setAttribute('aria-live', 'assertive');
+   toast.setAttribute('aria-atomic', 'true');
+ 
+   const toastBody = document.createElement('div');
+   toastBody.className = 'toast-body';
+   toastBody.textContent = message;
+ 
+   toast.appendChild(toastBody);
+   toastContainer.appendChild(toast);
+ 
+   const bsToast = new bootstrap.Toast(toast);
+   bsToast.show();
+ }
+      // $(document).ready(function () {
+      //   // Show/hide OTP field and button
+      //   $("#otpButton").click(function () {
+      //     $("#otpField").show();
+      //     $("#otpVerifyButton").show();
+      //   });
+      // });
+      function checkNumber()
+        {
+          
+          let phone  = document.getElementById('phoneNumber').value;
+          //const message =  document.getElementById('number');
+            console.log("phone :"+phone);
+            
+            if(phone.length <10 || phone.length >10){
+              console.log("in error :"+phone);
+              let message = "Please Enter a valid phone number";
+              document.getElementById('phoneNumber').style.borderColor = "red";
+              showToast(message, 'warning')
+              return false;
+            }
+            else{
+             // message.innerHTML = "";
+              document.getElementById('phoneNumber').style.borderColor = "green";
+              document.getElementById('sendOTP').removeAttribute('disabled');
+              return true;
+            }
+        }
+
+       
+    </script>
+ <%- include('./layouts/footer.ejs') %>

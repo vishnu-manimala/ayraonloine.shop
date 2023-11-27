@@ -1,0 +1,455 @@
+<%- include('./layouts/headerUser.ejs') %>
+<div class="container-fluid mt-lg-2">
+  <div class="row justify-content-center m-1 mb-3">
+    <div class="col-md-2 bg-white rounded pt-3">
+      <div class="row d-flex justify-content-between p-2">
+        <span id="userdata" style="display: none;"><%= userdata  %></span>
+        <div class="col-6 ">
+          <h6> Filters</h6>
+        </div>
+        <div class="col-6 ">
+          <a class="text-decoration-none" style="color: palevioletred;" onclick="clearAll()"><span>Clear all</span></a>
+        </div>
+      </div>
+      <div class="container mt-lg-3">
+        <span class="m-1 ">CATEGOSRIES</span>
+        
+        <% for(let i=0;i<categoryData.length;i++) { %>
+          <% let name= categoryData[i].categoryName %>
+        <div class=" d-flex mt-lg-2" href="" >
+          <div class=" align-items-start flex-column justify-content-center ps-2  ">
+            <input type="checkbox" id="categoryCheckBox" onclick="getCategory('<%= categoryData[i].categoryName %>')" value="<%= i %>" class="category-checkbox">
+            <label for="category-<%= i %>">
+              <%= categoryData[i].categoryName %>
+            </label>
+          </div>
+        </div>
+       <% } %>
+      </div>
+    </div>
+    <div class="col-md-10">
+      <div class="card">
+        <header class="card-header border-0">
+          <!-- <span><small>Home / <b>Her</b></small></span> -->
+        </header>
+        <div class="container"> 
+          <p></p>
+        </div>
+        <div class="container-fluid"> 
+          <ul class="navbar-nav nbar-nav-right  ">
+          <li class="nav-item dropdown">
+            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="currentColor" class="bi bi-filter-left" viewBox="0 0 16 16">
+                <path d="M2 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+              </svg>
+              
+              <span class="count-symbol ">Sort by</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+              <a class="dropdown-item preview-item d-flex" href="#">
+                <div class="" >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-up" viewBox="0 0 16 16">
+                    <path d="M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707V12.5zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
+                  </svg>
+                </div>
+                <div class="preview-item-content d-flex align-items-start flex-column justify-content-center ps-2" onclick="priceSort(1)">
+                  <span class="preview-subject font-weight-normal mb-1"><small> low to high</small></span>
+                </div>
+              </a>
+              <a class="dropdown-item preview-item d-flex" href="#">
+                <div class="preview-thumbnail" >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-down" viewBox="0 0 16 16">
+                    <path d="M3.5 2.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 11.293V2.5zm3.5 1a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
+                  </svg>
+                </div>
+                <div class="preview-item-content d-flex align-items-start flex-column justify-content-center ps-2" onclick="priceSort(-1)">
+                 <span class="preview-subject font-weight-normal mb-1"><small> high to low</small></span>
+                </div>  
+              </a>
+              <div class="dropdown-divider"></div>
+          </li>
+        </ul>
+        <div class="toast-container position-fixed top-0 end-0 p-3">
+           
+        </div>
+        </div>
+        <div class="container" >
+          <div class="row" id="product-container">
+            <% data.forEach((data) => { %>
+              <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card mb-4 justify-content-center">
+                 <a href="/product/<%= data._id %>"> <img src=" ../../productImages/<%= data.image[0] %>" class="card-img-top align-self-center p-lg-2 col-md-12 col-sm-4 " alt="image" style="height: 300px;width: 300px;" ></a>
+                  <div class="card-body">
+                    <%if(data.brand){ %>
+                      <p class=" card-title"><%= data.brand %> </p>
+                    <%}else{ %>
+                      <p class="card-title">... </p>
+                    <%} %>
+                    <div class="name-container" style="width: 200px;overflow: hidden;">
+                      <h6 class="name " style="display: -webkit-box;
+                      -webkit-box-orient: vertical;
+                      -webkit-line-clamp: 2; 
+                      text-overflow: ellipsis;
+                      overflow: hidden;"><%= data.product_name %></h6>
+                    </div>
+                    <% if(userdata){ %>
+                    <div class="row d-flex justify-content-between">
+                      <div class="col justify-content-md-start">
+                        <p class="card-text pt-1">Rs. <%= data.price  %></p>
+                      </div>
+                      <div class="col justify-content-md-end">
+                        <button class="btn bg-white" style="border-block-color: palevioletred;" onclick="addtoBag('<%= data._id %>')">add to bag</button>
+                      </div>
+                    </div>
+                    <% }else{ %>
+                    <p class="card-text">Rs. <%= data.price  %></p>
+                    <% } %>
+                  </div>
+                </div>
+              </div>
+            <% }); %>
+          </div>
+          <nav aria-label="...">
+            <div >
+            <ul class="pagination" id="paginationDiv">
+              <% for(let i=1;i<=count;i++){ %>
+              <li class="page-item ">
+                <a class="page-link"  onclick="paginate('<%= i %>')"><%= i %></a>
+              </li>
+             <% } %>
+            </ul>
+          </div>
+          </nav>
+        </div>
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  //declaring globaLLY
+  let categoryCheckBox = new Array();
+  let sortValue =null;
+  let searchValue = "";
+  let queryCategory={isAvilable:true};
+  let sortQuery ={};
+  let documnetsCount;
+let bagBox =  document.getElementById('userdata').innerHTML;
+
+// ##################################### toast message ###########################################
+
+function showToast(message, type) {
+   
+   const toastContainer = document.querySelector('.toast-container');
+ 
+   const toast = document.createElement('div');
+   toast.className = `toast bg-${type} text-white`;
+   toast.setAttribute('role', 'alert');
+   toast.setAttribute('aria-live', 'assertive');
+   toast.setAttribute('aria-atomic', 'true');
+ 
+   const toastBody = document.createElement('div');
+   toastBody.className = 'toast-body';
+   toastBody.textContent = message;
+ 
+   toast.appendChild(toastBody);
+   toastContainer.appendChild(toast);
+ 
+   const bsToast = new bootstrap.Toast(toast);
+   bsToast.show();
+ }
+
+// ##################################### Rest ###########################################
+function clearAll(){
+  window.location.reload();
+}
+
+//category click filter
+  function getCategory(name) {
+  const categoryFilter = name;
+  
+  if(categoryCheckBox.includes(name)){
+    
+    const index = categoryCheckBox.indexOf(name);
+    categoryCheckBox.splice(index,1);
+    console.log(categoryCheckBox);
+
+  }else{
+    categoryCheckBox.push(name);
+    console.log(categoryCheckBox)
+  }
+  
+  
+  if(categoryCheckBox.length>0){
+    queryCategory = {$and:[{ category: { $in: categoryCheckBox } },{isAvilable:true}]}
+  }else{
+    queryCategory = {isAvilable:true}
+   
+  }
+  
+  const url = "/home/page"
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ limitNumber: 6, skipNumber:0, queryData:queryCategory, sortQuery })
+  };
+  fectchCount(url,options)
+  fetchData(url,options);
+ 
+}
+
+//sort click
+function priceSort(order) {
+  
+  if(order == 1){
+    sortValue = 1;
+    sortQuery = {price:1}
+    
+  }else if(order == -1){
+    sortValue = -1;
+    sortQuery = {price: -1}
+  }else{
+    sortValue = "";
+    sortQuery = {}
+  }
+  const url = "/home/page"
+ const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ limitNumber: 6, skipNumber:0, queryData:queryCategory,sortQuery })
+  };
+  fectchCount(url,options)
+  fetchData(url,options);
+}
+
+function paginate(pageNumber){
+  const page = parseInt(pageNumber);
+ 
+   const limit = 6;
+   const skip = 6*(page-1);   
+  const  query = {isAvilable:true} ;
+ const url = "/home/page"
+ const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ limitNumber: limit, skipNumber:skip, queryData:queryCategory,sortQuery })
+  };
+ 
+  fetchData(url,options)
+}
+
+function fectchCount(url,options){
+  fetch(url+'?count=1', options)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      // alert(data);
+      const productContainer = document.getElementById('paginationDiv');
+                        productContainer.innerHTML = '';
+                   
+         for(let i=1;i<=data;i++) {
+          
+          const item = `
+         
+          <li class="page-item ">
+                <a class="page-link"  onclick="paginate(${i})">${i}</a>
+              </li>
+        `
+        productContainer.innerHTML += item
+      
+        };
+    })
+   
+}
+
+// ##################################### ADD TO BAG ###########################################
+function addtoBag(id){
+
+  const url = `/product/api/addtoBag?id=${id}`;
+  fetchBag(url,id);
+  
+}
+function fetchBag(url,id){
+       
+       const options = {
+           method:'POST',
+           Headers:{
+               'Content-Type':'application/json'
+           },
+           body: JSON.stringify({id:id})
+       }
+       
+       fetch(url,options)
+       .then(response=> response.json())
+       .then(data=>{
+           console.log(data);
+           if (data === "blocked") {
+            window.location.href = '/login'
+          }else if(data == "exists"){
+               //document.getElementById("errorr").innerHTML = "already exists";
+               showToast('already exists!', 'success');
+           } else if(data == "login"){
+               //document.getElementById("errorr").innerHTML = "Please Login";
+               showToast('Please Login!!!', 'warning');
+           }else{
+               //document.getElementById("errorr").innerHTML = "Success";
+               showToast('Added to cart!!!', 'success');
+           }
+       })
+   }
+
+
+// ##################################### searchFilter ###########################################
+
+function searchFilter(){
+  let searchQuery = {};
+  searchValue = document.getElementById('search').value;
+ console.log(categoryCheckBox)
+      if(search){
+        if(categoryCheckBox.length>0){
+          searchQuery={
+              $and: [
+                { category: { $in: categoryCheckBox } },
+                { isAvilable: true },
+                { product_name: { $regex: searchValue, $options: 'i' } }
+              ]
+            }
+        }else{
+          searchQuery={
+              $and: [
+                { isAvilable: true },
+                { product_name: { $regex: searchValue, $options: 'i' } }
+              ]
+            }
+        }
+      }else{
+        if(categoryCheckBox){
+          searchQuery={
+              $and: [
+                { category: { $in: categoryCheckBox } },
+                { isAvilable: true }
+              ]
+            }
+        }else{
+          searchQuery={
+              $and: [
+                { isAvilable: true }
+              ]
+            }
+        }
+      }
+      const url = "/home/page"
+    const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ limitNumber: 6, skipNumber:0, queryData:searchQuery,sortQuery })
+  };
+      fectchCount(url,options)
+      fetchData(url,options);
+      searchValue = document.getElementById('search').value="";
+}
+
+
+
+function fetchData(url,options){
+ 
+  console.log(options)
+  fetch(url, options)
+    .then(response => response.json())
+    .then(data => {
+      console.log("data >> ",data);
+      
+      const productContainer = document.getElementById('product-container');
+                        productContainer.innerHTML = '';
+
+      data.forEach( data => {
+        console.log(data);
+        if(bagBox){
+          const item = `
+         
+              <span id="getData" style="display:none;" value="${data}"></span>
+          
+              <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card mb-4 justify-content-center">
+                 <a href="/product/${data._id} "> <img src=" ../../productImages/${ data.image[0] }" class="card-img-top align-self-center p-lg-2" alt="image" style="height: 300px;width: 300px;" ></a>
+                  <div class="card-body">
+                    <p class="card-title">${data.brand } </p>
+                    <div class="name-container" style="width: 200px;overflow: hidden;">
+                      <h6 class="name " style="display: -webkit-box;
+                      -webkit-box-orient: vertical;
+                      -webkit-line-clamp: 2; 
+                      text-overflow: ellipsis;
+                      overflow: hidden;">${ data.product_name }</h6>
+                    </div>
+                    bagBox
+                    <div class="row d-flex justify-content-between">
+                      <div class="col justify-content-md-start">
+                        <p class="card-text pt-1">Rs.${  data.price  }</p>
+                      </div>
+                      <div class="col justify-content-md-end">
+                        <button class="btn bg-white" style="border-block-color: palevioletred;" id="add" onClick="addtoBag('${data._id}')" >Add to bag</button>
+                      </div>
+                    </div>
+
+                  
+                  </div>
+                </div>
+              </div>
+           
+         
+        `
+        productContainer.innerHTML += item
+
+      }else{
+        const item = `
+         
+         
+          
+         <div class="col-lg-4 col-md-6 col-sm-12">
+           <div class="card mb-4 justify-content-center">
+            <a href="/product/${data._id} "> <img src=" ../../productImages/${ data.image[0] }" class="card-img-top align-self-center p-lg-2" alt="image" style="height: 300px;width: 300px;" ></a>
+             <div class="card-body">
+               <p class="card-title">${data.brand } </p>
+               <div class="name-container" style="width: 200px;overflow: hidden;">
+                 <h6 class="name " style="display: -webkit-box;
+                 -webkit-box-orient: vertical;
+                 -webkit-line-clamp: 2; 
+                 text-overflow: ellipsis;
+                 overflow: hidden;">${ data.product_name }</h6>
+               </div>
+               bagBox
+             
+               <p class="card-text">Rs.${  data.price  }</p> 
+             
+             </div>
+           </div>
+         </div>
+      
+    
+   `
+   productContainer.innerHTML += item
+
+      }
+        });
+
+
+     
+    })
+    .catch(error => {
+      // Handle any errors that occurred during the fetch request
+      console.error(error);
+    });
+}
+
+
+</script>
+<%- include('./layouts/footer.ejs') %>

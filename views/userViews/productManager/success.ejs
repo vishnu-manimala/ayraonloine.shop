@@ -1,0 +1,50 @@
+<%- include('../layouts/headerUser.ejs') %>
+<div class="container mb-lg-3">
+  <div class="row justify-content-center mt-3">
+    <div class="col-md-6">
+      <div class="card">
+        <header class="card-header border-0 text-center mp-sm-3">
+          <h6 class="mt-md-3">Order Summary</h6>
+        </header>
+        <article class="card-body">
+          <div class="row d-flex justify-content-center mt-lg-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-check2-circle"
+              viewBox="0 0 16 16" style="color: green;">
+              <path
+                d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z" />
+              <path
+                d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z" />
+            </svg>
+          </div>
+          <div class="text-center pt-md-2">
+            <h3>Succesfully Placed Order</h3>
+          </div>
+          <div class="row d-flex justify-content-center">
+              <img src="https://i.pinimg.com/originals/51/ce/e6/51cee67564790d275cac21c4b754d8bb.gif" style="width: 400px;height: 200px;">
+          </div>
+         
+          <div class="container row d-flex">
+            <div class="col d-flex justify-content-lg-end">
+              <a href="/">
+                <button type="submit" id="sendOTP" class="btn  btn-block text-black"
+                style="width:inherit; background-color: palevioletred; " >
+                  Continue Shopping
+                </button>
+              </a>
+            </div>
+            <div class=" col">
+              <a href="/kart/ckeckout/order?id=<%= orderId %>">
+                <button type="submit" id="sendOTP" class="btn  btn-block text-black ms-lg-4 "
+                  style="width:inherit; background-color: palevioletred; " >
+                  View Orders
+                </button>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../layouts/footer.ejs') %>

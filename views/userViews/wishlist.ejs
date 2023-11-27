@@ -1,0 +1,85 @@
+<%- include('./layouts/headerUser.ejs') %>
+
+
+<div class="container mt-lg-2 justify-content-center shadow rounded-3 ">
+  <div class="row justify-content-center  mb-3 bg-white shadow rounded-3">
+    <div class="col-md-12 p-3 shadow rounded-3">
+        <div class="row">
+          <% if(data.length>0) { %>
+            <% data.forEach((element) => { %>
+                <div class="col-lg-12 col-md-6 col-sm-12">
+                    <div class="card mb-4 justify-content-center">
+                      <div class="card-body row d-flex">
+                        <div  class="col-lg-2">
+                  
+                            <div class="container-fluid"  id="setImage">   
+                              <a href="/product/<%= element._id %>"> <img src="  ../../productImages/<%= element.image[0] %> " class="card-img-top align-self-center pt-2 rounded-3" alt="image" style="height: 80px;width: 80px;" ></a>
+                           </div>
+                           
+                       </div>
+                       <div class="col-lg-8 ">
+                        <a href="/product/<%= element._id %>" style="text-decoration: none;"> <h6><small><i><%= element.product_name %></i></small></h6></a>
+                        <span><b>₹ <%= element.price %></b></span>
+                       </div>
+                       <div class="col-lg-2 text-lg-end pe-lg-3">
+                        <form action="/api/delete?productId=<%= element._id %>"  method="post"><button type="submit" style="border: none;background-color: white;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16" onclick="deleteWishlist('<%= element._id %>')">
+                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
+                          </svg></button>
+                        </form>
+                       </div>
+                      </div>
+                    </div>
+                  </div>
+                
+             <% })%>
+            <% }else{%>
+
+              <div class="row justify-content-center mt-3">
+                <div class="col-md-6 pt-3 ">
+                  <div class="card text-center mb-4 p-2">
+                    <header class="card-header border-0">
+                      <h6 class="card-title mt-2 text-center">Wishlist is Empty!!</h6>
+                    </header>
+                    <div class="row justify-content-center p-4">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-bag-x" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M6.146 8.146a.5.5 0 0 1 .708 0L8 9.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 10l1.147 1.146a.5.5 0 0 1-.708.708L8 10.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 10 6.146 8.854a.5.5 0 0 1 0-.708z"/>
+                        <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
+                      </svg>
+                    </div>
+                    <div>
+                    <article class="card-body text-center mt-3">
+                      <h6 class="card-title mt-2 text-center">Explore our wide selection and find something you like!!</h6>
+                      <a href="/"><span>Continue shopping</span></a>
+                    </article>
+                  </div>  
+                </div>  
+              </div> 
+              <% }%>
+        </div>
+    </div>
+  </div>
+</div>
+<script>
+//    function deleteWishlist(id){
+//     fetchDelete(id);
+//    }
+//    function fetchDelete(id){
+       
+//        const options = {
+//            method:'POST',
+//            Headers:{
+//                'Content-Type':'application/json'
+//            },
+//            body: JSON.stringify({id:id})
+//        };
+      
+//        fetch(`/api/delete?productId=${id}`,options)
+//        .then(response=> response.json())
+//        .then(data=>{
+//            console.log(data);
+          
+//        })
+//    }
+</script>
+<%- include('./layouts/footer.ejs') %>

@@ -1,0 +1,134 @@
+<%- include('./layouts/header_nologout.ejs') %>
+<div class="container">
+  <div class="row justify-content-center mt-3">
+    <div class="col-md-6 pt-3">
+      <div class="card">
+        <header class="card-header border-0">
+          <h4 class="card-title mt-2 text-center">Reset Password!!!</h4>
+        </header>
+        <article class="card-body">
+          <% if(typeof message !=='undefined' ) { %>
+          <p style="color: green; align-content: center;"><%= message %></p>
+          <% } %>
+
+          <form action="/otpValidate" method="post">
+            <div id="otpverify" style="display: block">
+              <div class="form-group">
+                <label>OTP </label>
+                <input
+                  type="number"
+                  name="otp"
+                  class="form-control"
+                  id="otp"
+                  placeholder="OTP"
+                  oninput="checkOtp()"
+                  required
+                />
+                <span id="otpError"></span>
+              </div>
+              <div
+                class="form-group"
+                style="
+                  display: block;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+              >
+                <button
+                  type="submit"
+                  id="sendOTP"
+                  class="btn btn-primary btn-block"
+                  style="width: auto"
+                  disabled
+                >
+                  submit
+                </button>
+              </div>
+              <div id="countDown" class="container text-center mt-2">
+                <span id="otpCount"></span>
+              </div>
+            </div>
+          </form>
+          <divc class="justify-content-center">
+            <a href="/login">Login with password</a>
+          </div>
+        
+          <form method="POST" action="/reset/resend">
+            <p class="full">
+              <div
+              class="form-group"
+              id="resendotpButton"
+              style="
+                  width: auto;
+                  display: block;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+              "
+              >
+              <button
+                  type="submit"
+                  class="btn btn-primary btn-block"
+                  style="width: auto"
+              >
+                  resend otp
+              </button>
+            </p>
+        
+          </form>
+        </article>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  
+
+
+  // Function to start the countdown
+  function startCountdown(seconds) {
+    var countdownElement = document.getElementById("otpCount");
+    var countdown = seconds;
+
+    // Update the countdown every second
+    var timer = setInterval(function() {
+      countdown--;
+      countdownElement.innerText = "Your otp will expire in "+countdown +" seconds !";
+
+      // Clear the timer when countdown reaches 0
+      if (countdown <= 0) {
+        clearInterval(timer);
+        countdownElement.innerText = "Your otp Expired";
+       
+        
+
+      }
+    }, 1000);
+  }
+
+  // Start the countdown
+  startCountdown(60); 
+
+
+
+// to check otp length
+  function checkOtp() {
+    let otp = document.getElementById("otp").value;
+    const message = document.getElementById("otpError");
+
+    if (otp.length < 6 || otp.length > 6) {
+      message.innerHTML = "please Enter a valid OTP";
+      document.getElementById("otp").style.borderColor = "red";
+      return false;
+    } else {
+      message.innerHTML = "";
+      document.getElementById("otp").style.borderColor = "green";
+      document.getElementById("sendOTP").removeAttribute("disabled");
+      return true;
+    }
+  }
+</script>
+<%- include('./layouts/footer.ejs') %>

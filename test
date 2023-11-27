@@ -1,0 +1,276 @@
+ //function quantityIncrement(price,id){
+        
+    //     const available = Object.keys(quantity).some(item => quantity[item].hasOwnProperty(id));
+    //     if(available){
+    //         const number = quantity.id.numbers
+    //         number++;
+    //         quantity.id = {
+    //             price : price,
+    //             numbers:1
+    //         }
+    //     }else{
+    //         quantity.id = {
+    //             price : price,
+    //             numbers:number
+    //         }
+    //     }
+    //     alert(quantity)
+    //     let ids = "quantity"+id
+    //     document.getElementById(ids).innerHTML = quantity;
+    //   }
+      
+
+//add new address
+
+   //  <div class=" bg-white ps-5" id="addNewAddress" style="border-radius: 10px;">
+   //                      <button class="btn border-0 bg-white" style="color: #38b4d0;font-size: small;"
+   //                          onclick="displayForm()">
+   //                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+   //                              class="bi bi-plus-circle" viewBox="0 0 16 16">
+   //                              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+   //                              <path
+   //                                  d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+   //                          </svg>
+   //                          ADD A NEW ADDRESS
+   //                      </button>
+   //                      <span id="errorMessage"> </span>
+   //                  </div>
+
+
+
+   // <!-- new address form -->
+               //  <div class="conatiner bg-white mt-2" id="addressForm" style="display: none;">
+               //      <form class="form-group p-lg-3">
+               //          <h6> ADD A NEW ADDRESS</h6>
+               //          <div class="container row d-flex p-lg-1">
+
+               //              <div class="col-md-6  ">
+               //                  <input class="form-control" type="text" id="name" placeholder="Name">
+               //              </div>
+               //              <div class="col-md-6  " id="profileImage">
+               //                  <input class="form-control no-arrows" id="phone" type="number"
+               //                      placeholder="10 digit phone number">
+               //              </div>
+               //          </div>
+               //          <div class="container row d-flex p-lg-1">
+
+               //              <div class="col-md-6  ">
+               //                  <input class="form-control" type="text" id="houseNum" placeholder="House No/Name">
+               //              </div>
+               //              <div class="col-md-6 ">
+               //                  <input class="form-control no-arrows" type="number" id="pincode" placeholder="Pincode">
+               //              </div>
+               //          </div>
+               //          <div class="container row d-flex p-lg-1">
+
+               //              <div class="col-md-12  ">
+               //                  <textarea class="form-control no-arrows " type="tex"
+               //                      placeholder="Address (Area and Street)" id="addressTextarea"></textarea>
+
+               //              </div>
+
+               //          </div>
+               //          <div class="container row d-flex p-lg-1">
+
+               //              <div class="col-md-6  ">
+               //                  <input class="form-control" type="text" placeholder="City/District/Town" id="city">
+               //              </div>
+               //              <div class="col-md-6 " id="profileImage">
+               //                  <input class="form-control " type="text" id="state" placeholder="State">
+               //              </div>
+               //          </div>
+               //          <div class="container row d-flex p-lg-1">
+
+               //              <div class="col-md-6  ">
+               //                  <input class="form-control" type="text" id="landmark" placeholder="Landmark(optional)">
+               //              </div>
+               //              <div class="col-md-6 " id="profileImage">
+               //                  <input class="form-control " type="text" id="alternatePhone"
+               //                      placeholder="Alternate Phone number">
+               //              </div>
+               //          </div>
+               //          <div class="container row d-flex mt-md-3  p-lg-1">
+
+               //              <div class="col-md-6 text-md-end ">
+               //                  <button class="btn w-50 " style="background-color: #38b4d0;" type="button"
+               //                      onclick="saveAddress()"> SAVE</button>
+               //              </div>
+               //              <div class="col-md-6 text-md-start " id="profileImage">
+               //                  <button type="button" class="btn w-50 bg-white" onclick="onCancel()">CANCEL</button>
+               //              </div>
+               //          </div>
+               //      </form>
+               //  </div>
+
+            //    function displayForm() {
+            //       document.getElementById('addNewAddress').style.display = 'none';
+            //       document.getElementById('addressList').style.display = 'none';
+            //       document.getElementById('addressForm').style.display = 'block';
+            //   }
+      
+            //   function onCancel() {
+            //       document.getElementById('addressForm').style.display = 'none';
+            //       document.getElementById('addNewAddress').style.display = 'block';
+            //       document.getElementById('addressList').style.display = 'block';
+            //   }
+
+         //    function saveAddress(){
+
+         //       const data = {
+         //           name: document.getElementById('name').value,
+         //           phone: document.getElementById('phone').value,
+         //           houseNumber: document.getElementById('houseNum').value,
+         //           pincode: document.getElementById('pincode').value,
+         //           adddress: document.getElementById('addressTextarea').value,
+         //           city: document.getElementById('city').value,
+         //           state: document.getElementById('state').value,
+         //           landmark: document.getElementById('landmark').value,
+         //           alternateNumber: document.getElementById('alternatePhone').value,
+   
+         //       }
+         //       console.log("in save address>> ",data);
+   
+         //       const options ={
+         //           method: 'POST',
+         //           headers: {
+         //           'Content-Type': 'application/json'
+         //           },
+         //           body: JSON.stringify({ data })
+         //       }
+   
+         //       const url='/user/profile/address_manager?id=api'
+         //       fetch(url,options)
+         //       .then(response => response.json())
+         //       .then(dataAddress => {
+         //           console.log(dataAddress);
+         //           if(!dataAddress){
+         //               document.getElementById('addressForm').style.display = 'none';
+         //               document.getElementById('addNewAddress').style.display = 'block';
+         //               document.getElementById('errorMessage').innerHTML = 'Something went wrong! try once again!';
+         //           }else{
+         //               console.log(datdataAddressa)
+         //               selectAddres(JSON.stringify(dataAddress));
+         //               ckeckoutAddres = data;
+         //           }
+         //       })
+         //   }
+
+         <!-- <tbody>
+            <% if(data){ %>
+
+              <% for(let i=0;i<data.length;i++){ %>
+
+                <tr >
+                  <td >
+                    <%= data[i]._id %>
+                  </td>
+                  <td>
+                    <%= data[i].product_name %>
+                  </td>
+                  <td>
+                    <%= data[i].price %>
+                  </td>
+                  <td >
+                    <%= data[i].brand %>
+                  </td>
+                  <td>
+                    <%= data[i].category %>
+                  </td>
+                  <td>
+                    <%= data[i].description %>
+                  </td>
+                  <td >
+                    <%= data[i].size %>
+                  </td>
+                  <td>
+                    <%= data[i].color %>
+                  </td>
+                  <td>
+                    <%= data[i].quantity %>
+                  </td>
+                  <td>
+                    <% for(let j=0;j<data[i].image.length;j++){ %>
+                    <img src=" ../../productImages/<%= data[i].image[j] %>" alt="" width="50px" height="50px" class="m-1">
+                    <% } %>
+                  </td>
+                  <td>
+
+                    <a href="/admin/products/edit_products?id=<%= data[i]._id %>"><button
+                        class="btn btn-danger">Edit</button></a>
+
+                  </td>
+                  <td>
+                    <form action="/admin/products/unlist?id=<%= data[i]._id %>" method="post">
+                      <button class="btn btn-danger">Unlist</button>
+                    </form>
+                  </td>
+                </tr>
+                <% } %>
+                  <% } %>
+          </tbody> -->
+<!-- 
+          
+function fetchData(url,options){
+  console.log(options)
+  fetch(url, options)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      const productContainer = document.getElementById('product-container');
+                        productContainer.innerHTML = '';
+
+      data.forEach( data => {
+          const item = `
+         
+         
+          
+              <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card mb-4 justify-content-center">
+                 <a href="/user/product/${data._id} "> <img src=" ../../productImages/${ data.image[0] }" class="card-img-top align-self-center p-lg-2" alt="image" style="height: 300px;width: 300px;" ></a>
+                  <div class="card-body">
+                    <p class="card-title">${data.brand } </p>
+                    <h6 class="card-text">${ data.product_name }</h6>
+                    <p class="card-text">Rs.${  data.price  }</p> 
+                    
+                  </div>
+                </div>
+              </div>
+           
+         
+        `
+        productContainer.innerHTML += item
+        });
+    }) -->
+
+
+
+    <div  class="col-lg-2">
+      <% data.image.forEach((data) => { %>
+       <div class="container-fluid" onclick="changeImage('<%= data %>')" id="setImage">   
+         <img src=" ../../productImages/<%= data %>" class="card-img-top align-self-center pt-2 rounded-3" 
+         alt="image" style="height: 80px;width: 80px;" >
+      </div>
+      <% }) %>
+  </div>
+  <div class="col-lg-10 p-1" id="img-container" onpointerover="zoomImage()" >
+      <img src=" ../../productImages/<%= data.image[0] %>" class="card-img-top align-self-center pt-2 rounded-3" 
+      alt="image" id="viewImage" style="height: 250px;width: 250px;" >
+  </div>
+
+
+  <div class="row">
+    <div class="col-3  p-1">
+        <% data.image.forEach((data) => { %>
+            <div class="container-fluid" onclick="changeImage('<%= data %>')" id="setImage">   
+              <img src=" ../../productImages/<%= data %>" class="card-img-top align-self-center pt-2 rounded-3" 
+              alt="image" style="height: 80px;width: 80px;" >
+           </div>
+           <% }) %>
+    </div>
+    <div class="img-container col-9  p-1" >
+        <div class=" row p-2">
+            <img class="p-1 " id="img-container" src=" ../../productImages/<%= data.image[0] %>" 
+            style="height: 400px;width: 500px;" onmousemove="zoomImage()">
+        </div>
+    </div>
+</div>

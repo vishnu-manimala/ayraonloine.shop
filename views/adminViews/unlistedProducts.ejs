@@ -1,0 +1,100 @@
+<%- include('./layout/header.ejs') %>
+  <div class="container mt-5 mb-5 bg-white">
+    <div class="row ">
+      <div class="col-lg-12 grid-margin stretch-card ">
+        <div class="card">
+          <div class="card-body ">
+            <div class="row d-flex justify-content-between">
+              <div class="col-lg-4">
+                <h4 class="card-title m-4 ">Products List</h4>
+              </div>
+              <div class="col-lg-8 text-end">
+                <div class="row ">
+                  <div class="col ">
+                    <a href="/admin/products"><button
+                      class="btn btn-danger m-4"> View Products</button></a>
+                    <a href="/admin/products/add_products"><button
+                      class="btn btn-danger m-4"> Add Product</button></a>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+           
+            <table class="table table-striped pt-4">
+              <thead>
+                <tr>
+                  <th> Product </th>
+                  <th> Name </th>
+                  <th> Price</th>
+                  <th> Brand </th>
+                  <th> Category </th>
+                  <th> Description </th>
+                  <th> size </th>
+                  <th> color </th>
+                  <th> Quantity </th>
+                  <th> Image </th>
+                  <th> Edit </th>
+                  <th> List/Unlist </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if(data){ %>
+
+                  <% for(let i=0;i<data.length;i++){ %>
+
+                    <tr>
+                      <td >
+                        <%= data[i]._id %>
+                      </td>
+                      <td>
+                        <%= data[i].product_name %>
+                      </td>
+                      <td>
+                        <%= data[i].price %>
+                      </td>
+                      <td class="py-1">
+                        <%= data[i].brand %>
+                      </td>
+                      <td>
+                        <%= data[i].category %>
+                      </td>
+                      <td>
+                        <%= data[i].description %>
+                      </td>
+                      <td class="py-1">
+                        <%= data[i].size %>
+                      </td>
+                      <td>
+                        <%= data[i].color %>
+                      </td>
+                      <td>
+                        <%= data[i].quantity %>
+                      </td>
+                      <td>
+                        <% for(let j=0;j<data[i].image.length;j++){ %>
+                        <img src=" ../../productImages/<%= data[i].image[j] %>" alt="" width="50px" height="50px" class="m-1">
+                        <% } %>
+                      </td>
+                      <td>
+
+                        <a href="/admin/products/edit_products?id=<%= data[i]._id %>"><button
+                            class="btn btn-danger">Edit</button></a>
+
+                      </td>
+                      <td>
+                        <form action="/admin/products/unlist?id=<%= data[i]._id %>" method="post">
+                          <button class="btn btn-danger">list</button>
+                        </form>
+                      </td>
+                    </tr>
+                    <% } %>
+                      <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<%- include('./layout/footer.ejs') %>

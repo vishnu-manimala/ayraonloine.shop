@@ -1,0 +1,164 @@
+<%- include('./layout/header.ejs') %>
+    <div class="container mt-5">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Add Products</h4>
+                    <form id="form-1" action="/admin/products/edit_products?id=<%=data[0]._id %>" method="post"
+                        enctype="multipart/form-data">
+                        <p class="card-description"> </p>
+                        <div class="row m-1 pt-4">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Product Name:<%= data[0]._id %></label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" value="<%= data[0].product_name %>"
+                                            name="productName" placeholder="<%= data[0].product_name %>" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Brand Name</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" value="<%= data[0].brand %>"
+                                            name="brandName" placeholder="<%= data[0].brand %>" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Category</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" name="category">
+                                            <option value="<%= data[0].category %>">
+                                                <%= data[0].category %>
+                                            </option>
+                                            <%for(let i=0;i<category.length;i++) { %>
+                                                <option value="<%= category[i].categoryName %>">
+                                                    <%= category[i].categoryName %>
+                                                </option>
+                                                <% } %>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Price</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" placeholder="Price" value="<%= data[0].price %>"
+                                            name="price" placeholder="<%= data[0].price %>" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Color </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" value="<%= data[0].color %>"
+                                            name="color" placeholder="<%= data[0].color %>" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Size</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="size" value="<%= data[0].size %>"
+                                            placeholder="<%= data[0].size %>" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-1">
+                            <!-- <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Description</label>
+                                    <div class="col-sm-9">
+                                        <textarea type="text" class="form-control" placeholder="Description" name="description"></textarea>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label ">Quantity</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="quantity"
+                                            value="<%= data[0].quantity %>" placeholder="<%= data[0].quantity %>" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-1">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Discription*</label>
+                                    <textarea class="form-control" placeholder="<%= data[0].description %>"
+                                        name="description" rows="4"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <div class="container">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="file" class="form-control my-3 py-2" name="image" multiple>
+                        <div class="form-group text-center m-3">
+
+                            <button class=" btn btn-primary " type="submit">Submit</button>
+
+                        </div>
+                    </form>
+                </div>
+                    <div class="row">
+                        <%if(data[0].image) { %>
+                        <% for(let i=0;i<data[0].image.length;i++){ %>
+                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="card mb-4 justify-content-center">
+                                    <img src=" ../../productImages/<%= data[0].image[i] %>"
+                                        class="card-img-top align-self-center pt-2" alt="image"
+                                        style="height: 100px;width: 100px;">
+                                    <form id="form-2" action="/admin/products/edit_product/delete_image?id=<%= data[0].image[i] %>"
+                                        method="post">
+                                       <button class="btn w-auto" type="submit" >delete</button>
+                                    </form>
+                                </div>
+
+                            </div>
+                            <% } %>
+                            <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <script>
+        function deleteImage(data){
+    const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({data })
+    }
+    fetch(`/admin/products/edit_product/delete_image?id=${data}`,options)
+    .then(response=>response.json())
+    .then(data=>{
+        
+     
+        if(data){
+            location.reload();
+        }
+    })
+}
+    </script> -->
+    <%- include('./layout/footer.ejs') %>
