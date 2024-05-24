@@ -4,7 +4,7 @@
   "description": "Ayara is new vecture by myself on my daughters name. its clothing brand especially fore kids and infants.",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "author": "vishnu manimala",
   "license": "ISC",
