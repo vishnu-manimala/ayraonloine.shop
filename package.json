@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Ayara is new vecture by myself on my daughters name. its clothing brand especially fore kids and infants.",
   "main": "server.js",
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
     "start": "node index.js"
   },
