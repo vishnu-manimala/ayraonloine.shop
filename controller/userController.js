@@ -57,7 +57,7 @@ const securePassword = async (password) => {
                 
       //LOad HOme
           const Loadhome = async (req, res) => {         
-            try {
+            // try {
               // if(req.session.userId){
               // const walletdata = await Wallet.find({userId:req.session.userId})
               // }
@@ -77,11 +77,11 @@ const securePassword = async (password) => {
               // {
               //   res.render("home", {count:count, data: data, userdata:"",categoryData,page:1 });
               // }
-            } catch (err) {
-              console.log("in load home",err.message);
-              res.send("error");
+            // } catch (err) {
+            //   console.log("in load home",err.message);
+            //   res.send("error");
              
-            }
+            // }
           };
          
          
