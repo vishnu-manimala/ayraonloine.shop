@@ -2,9 +2,9 @@
   "name": "ayra",
   "version": "1.0.0",
   "description": "Ayara is new vecture by myself on my daughters name. its clothing brand especially fore kids and infants.",
-  "main": "server.js",
+  "main": "index.js",
   "engines": {
-    "node": "18.x"
+    "node": "20.x"
   },
   "scripts": {
     "start": "node index.js"
