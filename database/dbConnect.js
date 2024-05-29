@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+const MongoDB_URL = process.env.MONGODB_URL;
 
 module.exports = async(req, res)=>{
     try{
-        await mongoose.connect('mongodb://0.0.0.0:27017/Ayra',{
+        await mongoose.connect(MongoDB_URL,{
             useNewUrlParser: true,
             useUnifiedTopology: true,
         }).then(()=>{
