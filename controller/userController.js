@@ -78,6 +78,7 @@ const securePassword = async (password) => {
               }
             } catch (err) {
               console.log("in load home",err.message);
+              res.send("error");
              
             }
           };
