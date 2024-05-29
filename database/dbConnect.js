@@ -3,7 +3,7 @@ const MongoDB_URL = process.env.MONGODB_URL;
 
 module.exports = async(req, res)=>{
     try{
-        await mongoose.connect('mongodb+srv://vishnu:ayraonline@ayra.ovkdvo3.mongodb.net/?retryWrites=true&w=majority',{
+        await mongoose.connect('mongodb+srv://vishnu:ayraonline@ayra.ovkdvo3.mongodb.net/?Ayra',{
             useNewUrlParser: true,
             useUnifiedTopology: true,
         }).then(()=>{
