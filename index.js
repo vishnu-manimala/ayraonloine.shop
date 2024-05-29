@@ -36,7 +36,7 @@ app.use('/public',express.static(path.join(__dirname, './public')));
 // MULTER IMAGE PATH FOR FROND END
 app.use('/productImages', express.static(path.resolve(__dirname, 'productImages')));
 app.get('/',(req,res)=>{
-    res.send('hi);
+    res.send('hi');
              });
 //app.use('/', require('./router/userRoutes'));//for user  side requests
 app.use('/admin',require('./router/adminRoutes'));//for admin side requests
