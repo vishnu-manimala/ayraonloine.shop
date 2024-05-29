@@ -58,10 +58,10 @@ const securePassword = async (password) => {
       //LOad HOme
           const Loadhome = async (req, res) => {         
             try {
-              if(req.session.userId){
-              const walletdata = await Wallet.find({userId:req.session.userId})
-              }
-              const userData = await User.findOne({ _id: req.session.userId });
+              // if(req.session.userId){
+              // const walletdata = await Wallet.find({userId:req.session.userId})
+              // }
+              // const userData = await User.findOne({ _id: req.session.userId });
               res.send(userData);
               // const category = await Category.find({isAvilable:false},{categoryName:1,_id:0});
             
