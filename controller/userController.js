@@ -9,7 +9,7 @@ const { Redirect } = require("twilio/lib/twiml/VoiceResponse");
 const User = require("../Model/userModel");
 const bcrypt = require('bcrypt');
 const { LocalStorage } = require('node-localstorage');
-const localStorage = new LocalStorage('./scratch');
+
 const Product = require('../Model/productModel');
 const Category = require('../Model/categoryModel');
 const { floor, ceil, constant } = require("lodash");
