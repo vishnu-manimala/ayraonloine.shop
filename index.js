@@ -29,8 +29,8 @@ app.use(function(req, res, next) {
   });
 
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, './views/userViews'));
-// app.set("views", "./views/userViews");
+
+ app.set("views", "./views/userViews");
 app.use('/public',express.static(path.join(__dirname, './public')));
 
 // MULTER IMAGE PATH FOR FROND END
