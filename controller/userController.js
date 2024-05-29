@@ -1,5 +1,4 @@
-const ServiceSID = "VA4324cdbe5302c269bc3c8aed99f55532";
-const verifySid = "VAc1f32951e6f1a7a6f57fadbddb9214ee";
+
 
 const AuthToken =process.env.AuthToken;
 const AccountSID = process.env.AccountSID;
@@ -19,13 +18,6 @@ const Orders = require('../Model/orderModel');
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
 const userModel = require("../Model/userModel");
-
-
-// (async function(){
-//   const wallet = await Wallet.find()
-// console.log(wallet)
-// }())
-
 
 //to generate OTP
 function generateOTP() {
@@ -64,57 +56,10 @@ const securePassword = async (password) => {
 
                 
       //LOad HOme
-          const Loadhome = async (req, res) => {
-const data ={       
-  "header": "Name,Email,Message,Message1,Message2,Message3,Message4",        
-  "URL": "https://docs.google.com/spreadsheets/d/1bfVMAiwIzBKwEDOeGShxoXDiGiz2IHO7Mj1nWHO4Qj8/edit#gid=0",     
-  "SheetName": "Test2",
-  "Name": "ayra",
-  "Email": "vishnu",
-  "Message": "My kiddo",
-  "Message1": "1 My kiddo",
-  "Message2": "1 My kiddo",
-  "Message3": "1 My kiddo",
-  "Message4": "1 My kiddo"
-}
-            const options = {
-              method: 'POST',
-              mode: 'cors', // Set the mode to 'cors'
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({       
-                "header": "Name,Email,Message,Message1,Message2,Message3,Message4",        
-                "URL": "https://docs.google.com/spreadsheets/d/1bfVMAiwIzBKwEDOeGShxoXDiGiz2IHO7Mj1nWHO4Qj8/edit#gid=0",     
-                "SheetName": "Test2",
-                "Name": "ayra",
-                "Email": "vishnu",
-                "Message": "My kiddo",
-                "Message1": "1 My kiddo",
-                "Message2": "1 My kiddo",
-                "Message3": "1 My kiddo",
-                "Message4": "1 My kiddo"
-              })
-            };
-            
-            fetch(`https://docs.google.com/spreadsheets/d/1bfVMAiwIzBKwEDOeGShxoXDiGiz2IHO7Mj1nWHO4Qj8/edit#gid=1900824571?param=${data}`, options)
-              .then(response => {
-                if (!response.ok) {
-                  throw new Error('Network response was not ok');
-                }
-                return response.json();
-              })
-              .then(data => {
-                console.log(data);
-              })
-              .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
-              });
-            console.log("in load+");
+          const Loadhome = async (req, res) => {         
             try {
               if(req.session.userId){
               const walletdata = await Wallet.find({userId:req.session.userId})
-              console.log("walletdata >>",walletdata)
               }
               const userData = await User.findOne({ _id: req.session.userId });
               const category = await Category.find({isAvilable:false},{categoryName:1,_id:0});
@@ -123,8 +68,6 @@ const data ={
               const count = ceil(datas/6);
               const data = await Product.find({isAvilable:true}).limit(6);
               const categoryData = await Category.find({isAvailable: true});
-              console.log("category>> ",categoryData);
-              console.log("loadHome: >> ",count)
               if (userData) 
               {
                 res.render("home", { count:count, userdata: userData, data:data, categoryData,page:1 });
@@ -166,7 +109,6 @@ const data ={
 
 
             const sendOTPLogin = async (req, res) => {
-              console.log(req.query.id);
               if(req.query.id === "success"){
                 try {
                   const loggedUserData = await User.findOne({
@@ -190,7 +132,8 @@ const data ={
                   console.log("userPhoneNumber :>> ", req.body.phoneNumber);
                   req.app.locals.OTP = loginKey;
                   req.app.locals.loginContact = req.body.phoneNumber;
-                  localStorage.setItem("contactNumber", req.body.phoneNumber)
+                  req.session.contactNumber = req.body.phoneNumber;
+                  // localStorage.setItem("contactNumber", req.body.phoneNumber)
                   console.log(req.app.locals.OTP);
                   console.log(req.app.locals.loginContact);
                   // res.render("loginOTP", { message: "OTP send succesfully",otp:"succes" });
@@ -222,7 +165,7 @@ const data ={
              //resend Otp for login           
             const resendOtp = async (req, res)=>{
               try{
-                const num = localStorage.getItem('contactNumber')
+                const num = req.session.contactNumber;
                 console.log("in resend controller");
                 const otp =  generateOTP();
                 console.log("resend : "+otp);
