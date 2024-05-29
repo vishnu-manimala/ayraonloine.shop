@@ -57,31 +57,31 @@ const securePassword = async (password) => {
                 
       //LOad HOme
           const Loadhome = async (req, res) => {         
-            // try {
-              // if(req.session.userId){
-              // const walletdata = await Wallet.find({userId:req.session.userId})
-              // }
-              // const userData = await User.findOne({ _id: req.session.userId });
-              res.send(userData);
-              // const category = await Category.find({isAvilable:false},{categoryName:1,_id:0});
+            try {
+              if(req.session.userId){
+              const walletdata = await Wallet.find({userId:req.session.userId})
+              }
+              const userData = await User.findOne({ _id: req.session.userId });
+              
+              const category = await Category.find({isAvilable:false},{categoryName:1,_id:0});
             
-              // const datas = await Product.find({isAvilable:true}).count();
-              // const count = ceil(datas/6);
-              // const data = await Product.find({isAvilable:true}).limit(6);
-              // const categoryData = await Category.find({isAvailable: true});
-              // if (userData) 
-              // {
-              //   res.render("home", { count:count, userdata: userData, data:data, categoryData,page:1 });
-              // } 
-              // else 
-              // {
-              //   res.render("home", {count:count, data: data, userdata:"",categoryData,page:1 });
-              // }
-            // } catch (err) {
-            //   console.log("in load home",err.message);
-            //   res.send("error");
+              const datas = await Product.find({isAvilable:true}).count();
+              const count = ceil(datas/6);
+              const data = await Product.find({isAvilable:true}).limit(6);
+              const categoryData = await Category.find({isAvailable: true});
+              if (userData) 
+              {
+                res.render("home", { count:count, userdata: userData, data:data, categoryData,page:1 });
+              } 
+              else 
+              {
+                res.render("home", {count:count, data: data, userdata:"",categoryData,page:1 });
+              }
+            } catch (err) {
+              console.log("in load home",err.message);
+              res.send("error");
              
-            // }
+            }
           };
          
          
