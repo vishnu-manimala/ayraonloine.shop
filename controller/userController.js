@@ -1,15 +1,8 @@
-// const AuthToken = "ffc71432917848b99ceb67186998a386";
-// const AccountSID = "ACd0b4c2adf23b13531290b4c52ff3b49a";
-// console.log(AccountSID == process.env.AccountSID);
-// console.log(process.env.AccountSID);
-// console.log(AccountSID)
-
 const ServiceSID = "VA4324cdbe5302c269bc3c8aed99f55532";
 const verifySid = "VAc1f32951e6f1a7a6f57fadbddb9214ee";
 
 const AuthToken =process.env.AuthToken;
 const AccountSID = process.env.AccountSID;
-// console.log(AccountSID)
 const twilio = require("twilio")(AccountSID, AuthToken);
 
 
