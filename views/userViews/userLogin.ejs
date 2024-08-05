@@ -20,6 +20,7 @@
               <form action="" method="post"  onsubmit="return allChecking()">
                 <!-- Email input -->
                 <div class="form-outline mb-4 ps-md-4 pe-md-4">
+                  <label class="text-primary pl-2" for="email">demo email : vishnu123@gmail.com</label>
                   <input
                     type="email"
                     id="email"
@@ -27,10 +28,11 @@
                     class="form-control form-control-lg" placeholder="Email"onchange="emailValidate()"
                     />
                     <span id="Email"></span>
-                    <a href="register" class="text-start" style="text-decoration: none;padding-left: 10px;">Register Now!!!?</a>
+                    <!-- <a href="register" class="text-start" style="text-decoration: none;padding-left: 10px;">Register Now!!!?</a> -->
                 </div>
                 <!-- Password input -->
                 <div class="form-outline mb-4 ps-md-4 pe-md-4">
+                  <label class="text-primary pl-2"  for="password">demo password : 1234567890</label>
                   <input
                     type="password"
                     id="password"
@@ -39,14 +41,14 @@
                     onchange="passwordValidate()"
                     />
                     <span id="Password"></span>
-                    <a href="/forgotPassword" style="text-decoration: none;padding-left: 10px;">forgot password?</a>
+                    <!-- <a href="/forgotPassword" style="text-decoration: none;padding-left: 10px;">forgot password?</a> -->
                 </div>
                 <div class="row d-flex justify-content-center">
                 <input type="submit"  class="btn btn-secondary text-center w-25" value="Login" onclick="emailValidate(),passwordValidate()" />
               </div>
               </form>
               <div class="text-center p-md-1">
-              <a href="/login"  style="text-decoration: none;">login with OTP</a>
+              <!-- <a href="/login"  style="text-decoration: none;">login with OTP</a> -->
               </div>
             </div>
           </div>

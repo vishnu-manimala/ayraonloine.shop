@@ -34,11 +34,9 @@ function generateOTP() {
 //Send Otp Function
 function sendOtp(number,otp){
   try{
-   
-      console.log(sendOtp);
-      return sendOtp;
+  
     }catch(err){
-      console.log(err);
+      
     }
 }
 
@@ -58,12 +56,14 @@ const securePassword = async (password) => {
       //LOad HOme
           const Loadhome = async (req, res) => {         
             try {
+              let userData = "";
               if(req.session.userId){
-              const walletdata = await Wallet.find({userId:req.session.userId})
+              const walletdata = await Wallet.find({userId:req.session.userId});
+               userData = await User.findOne({ _id: req.session.userId });
+
               }
-              const userData = await User.findOne({ _id: req.session.userId });
               
-              const category = await Category.find({isAvilable:false},{categoryName:1,_id:0});
+              const category = await Category.find();
             
               const datas = await Product.find({isAvilable:true}).count();
               const count = ceil(datas/6);
@@ -104,7 +104,6 @@ const securePassword = async (password) => {
                 const userdata = "";
                 res.render("loginUser", {userdata});
               } catch (err) {
-                console.log(err.message);
                 res.render("loginUser", { message: `${err.message}` });
               }
             };
@@ -116,7 +115,6 @@ const securePassword = async (password) => {
                   const loggedUserData = await User.findOne({
                     phone: req.app.locals.loginContact,
                   });
-                  console.log(loggedUserData);
                   if (loggedUserData ) {
                       req.session.userId = loggedUserData._id;
                       res.redirect("/");
@@ -124,23 +122,16 @@ const securePassword = async (password) => {
                     res.render("loginUser", { message: "Login Failed" });
                   }
                 } catch (err) {
-                  console.log("loginUser :" + err.message);
                   res.render("loginUser", { message: `${err.message}` });
                 }
               }else{
 
                 try {
                   const loginKey = generateOTP();
-                  console.log("userPhoneNumber :>> ", req.body.phoneNumber);
                   req.app.locals.OTP = loginKey;
                   req.app.locals.loginContact = req.body.phoneNumber;
                   req.session.contactNumber = req.body.phoneNumber;
-                  // localStorage.setItem("contactNumber", req.body.phoneNumber)
-                  console.log(req.app.locals.OTP);
-                  console.log(req.app.locals.loginContact);
-                  // res.render("loginOTP", { message: "OTP send succesfully",otp:"succes" });
-                  //await twilio.calls
-                  
+                                                 
                   await twilio.messages //sending message to number
                     .create({
                       body: loginKey,
@@ -152,7 +143,6 @@ const securePassword = async (password) => {
                       res.render("loginOTP", { message: "OTP send succesfully",otp:"succes" });
                     });
                 } catch (err) {
-                  console.log(err);
                   res.render("loginUser", { message: `${err.message}` });
                 }
                 setTimeout(() => {
@@ -168,9 +158,7 @@ const securePassword = async (password) => {
             const resendOtp = async (req, res)=>{
               try{
                 const num = req.session.contactNumber;
-                console.log("in resend controller");
                 const otp =  generateOTP();
-                console.log("resend : "+otp);
                 const resend = await twilio.messages //sending message to number
                 .create({
                   body: otp,
@@ -178,16 +166,13 @@ const securePassword = async (password) => {
                   from: "+1 6185076078", // From a valid Twilio number
                 })
                 .then((message) => {
-                  console.log(req.app.locals.OTP=otp);
                   req.app.locals.OTP=otp;
-                  console.log(req.app.locals.OTP=otp);
                   res.render("loginOTP", { message: "OTP resend succesfully",otp:"succes" });
                   localStorage.setItem("contactNumber", "")
                 });
                 
                 
               }catch(err){
-                console.log("resend : "+err);
               }
               setTimeout(() => {
                 req.app.locals.OTP = "";

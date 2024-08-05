@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
-const MongoDB_URL = process.env.MONGODB_URL;
 
 module.exports = async(req, res)=>{
     try{
-        await mongoose.connect('mongodb+srv://vishnu:ayraonline@ayra.ovkdvo3.mongodb.net/?Ayra',{
+        await mongoose.connect('mongodb+srv://vishnu:19rbYHoCl3uC547I@ayra.ovkdvo3.mongodb.net/Ayra',{
             useNewUrlParser: true,
             useUnifiedTopology: true,
         }).then(()=>{
@@ -15,3 +14,4 @@ module.exports = async(req, res)=>{
         console.log(err.message);
     }
 }
+
